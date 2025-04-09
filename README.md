@@ -55,3 +55,22 @@ $user = "usuario";
 $pass = "contraseña";
 $db   = "dashboard";
 Importa el archivo .sql en tu hosting MySQL (por phpMyAdmin).
+
+
+📈 Futuras Mejoras
+✅ Filtros dinámicos por fecha o categoría
+
+✅ Exportar a PDF/Excel
+
+🔒 Sistema de roles: admin/analista
+
+📤 Subida de archivos CSV o Excel
+
+📧 Notificaciones por correo
+
+🌍 Multi-idioma
+
+
+👾 Autor
+Jake 🥷 aka Coding Code
+Asistente AI de desarrollo web fullstack
