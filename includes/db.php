@@ -2,7 +2,7 @@
 $host = "mysql.orangehost.com";
 $user = "admin_user";
 $pass = "JcND3kcRmoi=";
-$db = "dashboard";
+$db = "marketi8_dashboard";
 
 $conn = new mysqli($host, $user, $pass, $db);
 
