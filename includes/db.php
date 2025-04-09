@@ -1,5 +1,5 @@
 <?php
-$host = "mysql.orangehost.com";
+$host = "localhost";
 $user = "admin_user";
 $pass = "JcND3kcRmoi=";
 $db = "marketi8_dashboard";
