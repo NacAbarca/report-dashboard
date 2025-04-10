@@ -1,76 +1,114 @@
-# 📊 Report Dashboard Web App
+# 📝 Release Notes - v1.0.0
 
-Bienvenido al **Panel de Reportes** creado con tecnologías web modernas.  
-Este proyecto es una aplicación web para visualizar datos dinámicos en tiempo real, accesible desde cualquier navegador moderno.
+📦 **Versión estable inicial del sistema de panel de reportes (Dashboard Web App)**  
+📅 Fecha de publicación: 2025-04-08  
+👨‍💻 Autor: Jake (AI Assistant) + Dev Sensei 🥷
 
 ---
 
-## 🚀 Tecnologías Usadas
+## ✅ Módulos Completados
 
-### 🖥️ Frontend
-- **Bootstrap 5**: Framework CSS responsivo para construir interfaces rápidas y limpias.
-- **Chart.js**: Librería de gráficos interactivos (barras, líneas, tortas, etc).
-- **JavaScript Vanilla**: Usado para interactividad, llamadas AJAX y lógica del dashboard.
-- **HTML5 + CSS3**: Estructura y estilo adicional.
-- **SweetAlert2 (opcional)**: Alerts estilizadas (no instalado aún).
+### 🔐 Autenticación
+- Formulario de inicio de sesión (`login.php`)
+- Validación de credenciales con `password_verify()`
+- Protección por sesiones (`$_SESSION`)
+- Logout funcional con redirección
 
 ### 🧠 Backend
-- **PHP (Vanilla)**: Lógica del servidor para manejar sesiones, login y datos.
-- **MySQL**: Base de datos para usuarios y datos de reportes.
-- **mysqli + prepared statements**: Seguridad ante SQL Injection.
+- Conexión remota a MySQL con `includes/db.php`
+- `mysqli` con **prepared statements**
+- Lógica de login + registro en `auth.php`
+- CRUD de usuarios con seguridad por rol
+
+### 📊 Dashboard y Admin
+- Interfaz con plantilla SB Admin 2
+- Página `index.php` con tarjetas y zona de gráficos
+- `Chart.js` integrado (barras, líneas)
+- Sección de administración: usuarios.php, alta, edición y baja
+- Roles de usuario: `admin` y `user`
+
+### 📁 Componentes
+- 🧱 `layout.php` factor común
+- `header.php`, `sidebar.php`, `footer.php` como bloques reutilizables
+- Estructura lista para escalar
+
+### 📢 Notificaciones
+- Sistema de **toasts** con `toast.js`
+- Sistema de **alertas clásicas** con `alertas.js`
+- Módulo unificado `notifier.js` con `notifyFromURL()` y limpieza automática de URL (`clearNotificationParams()`)
 
 ---
 
 ## 🧩 Estructura del Proyecto
 
+```
+├── login.php  
+├── registrar.php  
+├── /admin/usuarios.php  
+├── /admin/nuevo_usuario.php  
+├── /admin/editar_usuario.php  
+├── /admin/eliminar_usuario.php  
+├── /components/layout.php  
+├── /assets/js/notifier.js  
+├── /includes/auth.php  
+├── /includes/db.php  
+```
 
 ---
 
-## 🔐 Funciones Implementadas
+## 🔒 Seguridad
 
-| Módulo           | Funcionalidad                                                                 |
-|------------------|--------------------------------------------------------------------------------|
-| **Login**        | Autenticación de usuario con PHP y sesiones.                                  |
-| **Dashboard**    | Panel principal con tarjetas e informes gráficos.                             |
-| **Conexión DB**  | Conexión remota a base de datos en hosting externo (OrangeHost).              |
-| **Gráficas**     | Gráficos de barras y líneas con `Chart.js` usando datos JSON desde PHP.       |
-| **Protección**   | Uso de `password_hash()`, `password_verify()` y prepared statements.          |
-| **Logout**       | Sistema seguro de cierre de sesión.                                           |
+- Contraseñas cifradas con `password_hash()`
+- Autenticación solo vía POST
+- Redirección segura por sesión
+- Middleware aplicado en paneles protegidos
+- Sanitización mínima con `htmlspecialchars` y `addslashes`
 
 ---
 
-## ⚙️ Configuración Inicial
+## 🧪 QA
 
-1. Clonar el repositorio:
-   ```bash
-   git clone https://github.com/tu-usuario/report-dashboard.git
+- ✅ Login/Logout test ok  
+- ✅ Registro con validación ok  
+- ✅ CRUD de usuarios verificado  
+- ✅ Toasts y Alerts funcionando  
+- ✅ Roles operativos en UI  
 
-Configura tu base de datos en includes/db.php:
+---
 
-php
-Copiar
-Editar
-$host = "mysql.tudominio.com";
-$user = "usuario";
-$pass = "contraseña";
-$db   = "dashboard";
-Importa el archivo .sql en tu hosting MySQL (por phpMyAdmin).
+## 🚧 Roadmap v1.1.0 (siguiente versión)
 
+| Funcionalidad              | Estado      |
+|----------------------------|-------------|
+| 🧾 Exportar usuarios/reportes a Excel/PDF | 🔜 |
+| 📊 Filtros por fecha / tipo en reportes  | 🔜 |
+| 🔐 Mejoras en control de roles           | 🔜 |
+| 🧼 Sanitización avanzada con filtros     | 🔜 |
+| 🌐 Multi-idioma ES/EN                    | 🔜 |
+| 📤 Subida de CSV para importación        | 🔜 |
+| 📧 Sistema de recuperación de contraseña | 🔜 |
 
-📈 Futuras Mejoras
-✅ Filtros dinámicos por fecha o categoría
+---
 
-✅ Exportar a PDF/Excel
+## 📄 Licencia
 
-🔒 Sistema de roles: admin/analista
+MIT — libre para modificar, compartir y desplegar.  
+Contribuciones bienvenidas vía Pull Request 🤝
 
-📤 Subida de archivos CSV o Excel
+---
 
-📧 Notificaciones por correo
+> **Powered by:** Jake 🥷 + Dev Sensei 💻  
+> *Tu MVP ahora tiene Release Pro 💥*
 
-🌍 Multi-idioma
+```
 
+---
 
-👾 Autor
-Jake 🥷 aka Coding Code
-Asistente AI de desarrollo web fullstack
+## ✅ Git Commit del Release Notes
+
+```bash
+git add RELEASE-NOTES.md
+git commit -m "📄 release-notes v1.0.0: resumen completo de módulos, funcionalidades y roadmap"
+```
+
+---
