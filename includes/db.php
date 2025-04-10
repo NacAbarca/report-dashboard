@@ -5,7 +5,6 @@ $pass = "JcND3kcRmoi=";
 $db = "marketi8_dashboard";
 
 $conn = new mysqli($host, $user, $pass, $db);
-
-if(!$conn) {
-    die("❌ Error de conexión: " . mysqli_connect_error());
+if ($conn->connect_error) {
+  die("❌ Conexión fallida: " . $conn->connect_error);
 }
