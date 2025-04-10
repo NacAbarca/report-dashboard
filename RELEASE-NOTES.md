@@ -1,12 +1,15 @@
+## ✅ `RELEASE-NOTES.md` UNIFICADO – Versión Final
+
+```markdown
 # 📝 Release Notes - v1.0.0
 
-📦 **Versión inicial estable del sistema de panel de reportes (Dashboard)**
+📦 **Versión inicial estable del sistema de panel de reportes (Dashboard Web App)**  
 📅 Fecha de publicación: 2025-04-08  
-👨‍💻 Autor: Jake (AI Assistant)
+👨‍💻 Autor: Jake (AI Assistant) + Dev Sensei 🥷
 
 ---
 
-## ✅ Funcionalidades incluidas
+## ✅ Funcionalidades Incluidas
 
 ### 🔐 Autenticación
 - Formulario de inicio de sesión (`login.php`)
@@ -15,51 +18,114 @@
 - Cierre de sesión (`logout.php`)
 
 ### 🧠 Backend
-- Conexión a base de datos remota (MySQL en OrangeHost)
+- Conexión remota a base de datos (MySQL en OrangeHost)
 - `mysqli` + consultas seguras con **prepared statements**
-- `auth.php` para validación de acceso
-- Middleware `auth_check.php` en páginas protegidas
+- Lógica de login y registro en `auth.php`
+- Middleware `auth_check.php` para rutas protegidas
+
+### 👥 Gestión de Usuarios (CRUD)
+- Alta de usuario (`nuevo_usuario.php`)
+- Edición de datos y rol (`editar_usuario.php`)
+- Eliminación segura (`eliminar_usuario.php`)
+- Listado completo (`usuarios.php`)
 
 ### 📊 Dashboard
-- Página principal `index.php` con estructura de panel
-- Tarjetas Bootstrap y zona de gráficos
+- Página principal `index.php` con tarjetas y reportes
 - Gráficos interactivos con **Chart.js**
 - Datos servidos dinámicamente vía `charts/data_api.php`
+- Filtros y modularidad preparada
 
 ### 🖼️ Frontend
-- Interfaz responsive con **Bootstrap 5**
-- Estilos propios (`assets/css/styles.css`)
-- Componente de encabezado reutilizable (`components/header.php`)
+- UI responsive con **Bootstrap 5 / SB Admin 2**
+- Componentes reutilizables: `header.php`, `footer.php`, `sidebar.php`, `layout.php`
+- Estilos extendidos (`assets/css/styles.css`)
+- Layout general en `layout.php`
 
-### 📁 Organización de proyecto
-├── login.php 
-├── index.php 
-├── logout.php 
-├── includes/ 
-├── components/ 
-├── assets/ 
-├── charts/ 
-├── .gitignore 
-├── RELEASE-NOTES.md 
-└── README.md
+### 🔔 Notificaciones Inteligentes
+- Sistema de toasts flotantes con `toast.js`
+- Sistema de alertas visuales con `alertas.js`
+- Módulo unificado: `notifier.js`
+- Autodetección de `$_GET` con `notifyFromURL()`
+- Limpieza automática de parámetros con `clearNotificationParams()`
 
-yaml
-Copiar
-Editar
+---
+
+## 📁 Organización del Proyecto
+
+```
+/admin/
+├── usuarios.php
+├── nuevo_usuario.php
+├── editar_usuario.php
+├── eliminar_usuario.php
+
+/assets/
+└── js/
+    ├── toast.js
+    ├── alertas.js
+    └── notifier.js
+
+/components/
+├── header.php
+├── footer.php
+├── sidebar.php
+└── layout.php
+
+/includes/
+├── auth.php
+├── db.php
+
+login.php  
+registrar.php  
+index.php  
+logout.php  
+RELEASE-NOTES.md  
+README.md
+```
 
 ---
 
 ## 🛡️ Seguridad
-- Contraseñas hasheadas con `password_hash()`
-- Uso exclusivo de `password_verify()` para validar
-- Protección contra acceso sin sesión
+
+- Contraseñas cifradas con `password_hash()`
+- Validación de credenciales con `password_verify()`
+- Prevención básica de inyección SQL
+- Middleware por sesión en rutas sensibles
+- Redirección segura y protección de rol
 
 ---
 
-## 🚀 Próximos objetivos (v1.1.0)
-- Módulo de registro de usuarios con validación
-- Filtros dinámicos de reportes (por fecha, usuario, etc.)
-- Exportación de reportes a PDF y Excel
-- Roles de usuario: admin / viewer
+## 🧪 QA Validado
+
+✅ Login y logout  
+✅ Registro validado  
+✅ CRUD de usuarios  
+✅ Toasts y alertas activas  
+✅ Limpieza de URL automática  
+✅ Conexión remota a OrangeHost test OK
 
 ---
+
+## 🚀 Próximos Objetivos (v1.1.0)
+
+| Funcionalidad                                   | Estado |
+|-------------------------------------------------|--------|
+| 🧾 Registro de usuarios externo                 | 🔜     |
+| 📊 Filtros dinámicos en dashboard               | 🔜     |
+| 📤 Exportación a PDF / Excel                    | 🔜     |
+| 🔒 Sistema de roles extendido (viewer/admin)    | 🔜     |
+| 📥 Importación CSV o Excel                      | 🔜     |
+| 📧 Notificaciones vía email                     | 🔜     |
+| 🌍 Soporte multilenguaje (ES/EN)                | 🔜     |
+
+---
+
+## 📄 Licencia
+
+MIT License — libre para modificar, distribuir y desplegar con créditos.  
+**Contribuciones son bienvenidas vía Pull Request 🙌**
+
+---
+
+> **Powered by:** Jake 🥷 + Dev Sensei 💻  
+> *Versión MVP ahora oficialmente liberada* 🎯🚀
