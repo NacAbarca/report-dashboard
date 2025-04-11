@@ -1,0 +1,14 @@
+#sidebar-wrapper {
+    min-height: 100vh;
+    background: #343a40;
+  }
+  
+  #sidebar-wrapper .nav-link:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transition: all 0.2s;
+  }
+  
+  .navbar {
+    z-index: 1040;
+  }
+  
