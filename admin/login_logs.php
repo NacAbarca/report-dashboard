@@ -2,7 +2,7 @@
 $page_title = "📊 Auditoría de Accesos";
 
 require '../includes/middleware.php';
-require_secure_view('admin');
+require_secure_view(['user','admin', 'invitado']);
 require '../includes/db.php';
 require '../components/layout_start.php';
 
