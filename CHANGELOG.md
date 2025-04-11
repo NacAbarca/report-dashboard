@@ -4,6 +4,22 @@ Todas las versiones documentadas del sistema.
 Este changelog sigue el formato SemVer.
 
 ---
+# 📦 CHANGELOG - Proyecto Report Dashboard
+
+## [v1.1.0-alpha] - 2025-04-09
+### Agregado
+- Estructura base para nuevas funciones avanzadas
+- Soporte multirrol: `viewer`, `analyst`
+- CLI `make:securepage` con múltiples roles
+- Refactor de notificaciones (alert, toast, snackbar)
+- Modularización avanzada de layout y protección
+
+### Próximo
+- Filtros de reportes dinámicos
+- Exportar a Excel/PDF
+- Upload CSV
+- Soporte multilenguaje
+
 
 ## [v1.0.0] - 2025-04-08
 ### 🎯 Versión inicial estable (MVP completado)
