@@ -1,75 +1,87 @@
 <?php
-session_start();
-if (!isset($_SESSION['user'])) {
-  header("Location: ../login.php");
-  exit;
-}
+require '../includes/middleware.php';
+require_secure_view('admin');
 require '../includes/db.php';
 
-$msg = '';
+// 🚨 PROCESAR POST ANTES DE CUALQUIER HTML
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  $username = trim($_POST['username']);
-  $password = trim($_POST['password']);
-  $role = $_POST['role'];
+    $username = trim($_POST['username'] ?? '');
+    $password = trim($_POST['password'] ?? '');
+    $role     = $_POST['role'] ?? 'user';
 
-  if ($username && $password) {
-    $hash = password_hash($password, PASSWORD_DEFAULT);
+    if ($username && $password) {
+      $check = $conn->prepare("SELECT id FROM users WHERE username = ?");
+      $check->bind_param("s", $username);
+      $check->execute();
+      $check->store_result();
 
-    $stmt = $conn->prepare("INSERT INTO users (username, password, role) VALUES (?, ?, ?)");
-    $stmt->bind_param("sss", $username, $hash, $role);
+      if ($check->num_rows > 0) {
+        header("Location: nuevo_usuario.php?error=⚠️ El usuario ya existe");
+        exit;
+      }
 
-    if ($stmt->execute()) {
-      header("Location: usuarios.php?success=" . urlencode("Usuario creado correctamente"));
+      $hash = password_hash($password, PASSWORD_DEFAULT);
+      $stmt = $conn->prepare("INSERT INTO users (username, password, role) VALUES (?, ?, ?)");
+      $stmt->bind_param("sss", $username, $hash, $role);
+
+      if ($stmt->execute()) {
+        header("Location: usuarios.php?success=✅ Usuario creado correctamente");
+      } else {
+        header("Location: nuevo_usuario.php?error=❌ Error al guardar el usuario");
+      }
       exit;
     } else {
-      $msg = "⚠️ No se pudo registrar. ¿Existe ya ese usuario?";
+      header("Location: nuevo_usuario.php?error=❌ Todos los campos son obligatorios");
+      exit;
     }
-  } else {
-    $msg = "❌ Todos los campos son obligatorios.";
   }
-}
+
+  $page_title = "➕ Nuevo Usuario";
+  require '../components/layout_start.php';
 ?>
 
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <title>Nuevo Usuario</title>
-  <link href="/sbadmin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
-  <link href="/sbadmin/css/sb-admin-2.min.css" rel="stylesheet">
-</head>
-<body class="bg-light">
-  <div class="container mt-5">
-    <h2 class="mb-4">➕ Registrar nuevo usuario</h2>
+<!-- CONTENIDO -->
+<div class="mb-4 d-flex align-items-center gap-2">
+  <i class="fas fa-user-plus fa-lg text-primary"></i>
+  <h3 class="text-primary m-0">Nuevo Usuario</h3>
+</div>
 
-    <?php if ($msg): ?>
-      <div class="alert alert-danger"><?= htmlspecialchars($msg) ?></div>
-    <?php endif; ?>
+<div id="alert-container"></div>
 
-    <form method="POST" action="nuevo_usuario.php">
-      <div class="mb-3">
-        <label class="form-label">Usuario</label>
-        <input type="text" name="username" class="form-control" required>
-      </div>
-
-      <div class="mb-3">
-        <label class="form-label">Contraseña</label>
-        <input type="password" name="password" class="form-control" required>
-      </div>
-
-      <div class="mb-3">
-        <label class="form-label">Rol</label>
-        <select name="role" class="form-select" required>
-          <option value="user">Usuario</option>
-          <option value="admin">Administrador</option>
-        </select>
-      </div>
-
-      <button type="submit" class="btn btn-success"><i class="fas fa-check"></i> Registrar</button>
-      <a href="usuarios.php" class="btn btn-secondary">Volver</a>
-    </form>
+<form method="POST" class="card shadow-sm p-4">
+  <div class="mb-3">
+    <label for="username" class="form-label"><i class="fas fa-user me-1"></i>Usuario</label>
+    <input type="text" name="username" id="username" class="form-control" required>
   </div>
 
-  <script src="/sbadmin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+  <div class="mb-3">
+    <label for="password" class="form-label"><i class="fas fa-lock me-1"></i>Contraseña</label>
+    <input type="password" name="password" id="password" class="form-control" required>
+  </div>
+
+  <div class="mb-3">
+    <label for="role" class="form-label"><i class="fas fa-user-shield me-1"></i>Rol</label>
+    <select name="role" id="role" class="form-select">
+      <option value="user" selected>👤 Usuario</option>
+      <option value="admin">👑 Administrador</option>
+    </select>
+  </div>
+
+  <div class="d-flex justify-content-between">
+    <a href="usuarios.php" class="btn btn-secondary">
+      <i class="fas fa-arrow-left"></i> Volver
+    </a>
+    <button type="submit" class="btn btn-success">
+      <i class="fas fa-user-plus"></i> Crear Usuario
+    </button>
+  </div>
+</form>
+
+<script type="module">
+  import { notifyFromURL } from '/assets/js/notifier.js';
+
+  // ✅ Mostrar automáticamente notificación desde URL (?success=...)
+  notifyFromURL('toast'); // o 'alert'
+</script>
+
+<?php require '../components/layout_end.php'; ?>

@@ -1,20 +1,38 @@
-<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+<?php
+$user = $_SESSION['user'] ?? 'Invitado';
+$role = $_SESSION['role'] ?? 'user';
 
-  <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-    <i class="fa fa-bars"></i>
-  </button>
+$roleEmoji = [
+  'admin'    => '🛡️ Administrador',
+  'user'     => '👤 Usuario',
+  'analyst'  => '📊 Analista',
+][$role] ?? '👥 Usuario';
+?>
 
-  <ul class="navbar-nav ml-auto">
-    <li class="nav-item dropdown no-arrow">
-      <a class="nav-link dropdown-toggle" href="#" id="userDropdown">
-        <span class="mr-2 d-none d-lg-inline text-gray-600 small">
-          <?= $_SESSION['user'] ?? 'Usuario' ?>
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm px-4 border-bottom">
+  <div class="container-fluid">
+
+    <!-- Marca del panel -->
+    <span class="navbar-brand fw-bold text-primary">📊 Panel de Reportes</span>
+
+    <!-- Menú de usuario -->
+    <div class="dropdown ms-auto">
+      <a href="#" class="d-flex align-items-center text-decoration-none text-dark dropdown-toggle" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+        <span class="me-2 fw-medium">
+          <?= htmlspecialchars($user) ?>  
         </span>
-        <i class="fas fa-user-circle fa-lg text-primary"></i>
+        <img src="/assets/img/avatar-default.png" alt="avatar" width="32" height="32" class="rounded-circle">
       </a>
-    </li>
-  </ul>
 
+      <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="userDropdown">
+        <li class="dropdown-header text-muted small">
+          <?= $roleEmoji ?>
+        </li>
+        <li><a class="dropdown-item" href="/perfil.php">🧑‍💼 Mi perfil</a></li>
+        <li><hr class="dropdown-divider"></li>
+        <li><a class="dropdown-item text-danger" href="/logout.php">🚪 Cerrar sesión</a></li>
+      </ul>
+    </div>
+
+  </div>
 </nav>
-
-<!-- End of Topbar -->

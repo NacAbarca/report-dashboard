@@ -43,7 +43,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="utf-8">
     <title>Registrar cuenta</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="sbadmin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/vendor/fontawesome/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Nunito:400,700" rel="stylesheet">
     <link href="sbadmin/css/sb-admin-2.min.css" rel="stylesheet">
   </head>
@@ -91,37 +92,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       </div>
     </div>
     
+    <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="/sbadmin/vendor/jquery/jquery.min.js"></script>
-    <script src="/sbadmin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="/sbadmin/js/sb-admin-2.min.js"></script>
-
-    <script type="module">
-      import { showToast, clearToastParams } from '../assets/js/toast.js';
-
-      <?php if (!empty($_GET['success'])): ?>
-        showToast("<?= addslashes($_GET['success']) ?>", "success");
-      <?php endif; ?>
-
-      <?php if (!empty($_GET['error'])): ?>
-        showToast("<?= addslashes($_GET['error']) ?>", "danger");
-      <?php endif; ?>
-
-      clearToastParams(); // 🧼 limpia ?success y ?error de la barra
-    </script>
-
-    <script type="module">
-      import { showAlert, clearAlertParams } from './assets/js/alertas.js';
-
-      <?php if (!empty($_GET['success'])): ?>
-        showAlert("<?= addslashes($_GET['success']) ?>", "success");
-      <?php endif; ?>
-
-      <?php if (!empty($_GET['error'])): ?>
-        showAlert("<?= addslashes($_GET['error']) ?>", "danger");
-      <?php endif; ?>
-
-      clearAlertParams(); // 🧼 limpia ?success, ?error, etc. de la URL
-    </script>
 
     <script type="module">
       import { notifyFromURL } from '../assets/js/notifier.js';

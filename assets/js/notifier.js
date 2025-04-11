@@ -1,96 +1,70 @@
-// ✅ Notificación unificada: alert o toast
+// /assets/js/notifier.js
+import { showToast, clearToastParams } from './toast.js';
+import { showAlert, clearAlertParams } from './alertas.js';
+
+/**
+ * ✅ Notificación unificada visual (Toast o Alert)
+ * @param {string} message - Mensaje a mostrar
+ * @param {Object} options
+ * @param {string} [options.type='info'] - Tipo de mensaje (success, error, info, danger, warning)
+ * @param {string} [options.mode='toast'] - 'toast' o 'alert'
+ * @param {string} [options.position='top-right'] - Posición toast (no aplica en alert)
+ * @param {string} [options.containerId='alert-container'] - ID del contenedor de alertas
+ * @param {number} [options.duration=4000] - Tiempo visible (milisegundos)
+ */
 export function showNotification(message, {
   type = 'info',
   mode = 'toast',
-  position = 'bottom-right',
+  position = 'top-right',
   containerId = 'alert-container',
   duration = 4000
 } = {}) {
   if (mode === 'alert') {
-    const container = document.getElementById(containerId);
-    if (!container) return console.error(`❌ Contenedor #${containerId} no encontrado`);
-    const alert = document.createElement('div');
-    alert.className = `alert alert-${type} alert-dismissible fade`;
-    alert.setAttribute('role', 'alert');
-    alert.innerHTML = `
-      ${message}
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
-    `;
-    container.appendChild(alert);
-    void alert.offsetWidth;
-    alert.classList.add('show');
-    setTimeout(() => {
-      alert.classList.remove('show');
-      setTimeout(() => alert.remove(), 300);
-    }, duration);
+    showAlert(message, type, containerId, duration);
   } else {
-    const positions = {
-      'top-left': 'top: 1rem; left: 1rem;',
-      'top-right': 'top: 1rem; right: 1rem;',
-      'bottom-left': 'bottom: 1rem; left: 1rem;',
-      'bottom-right': 'bottom: 1rem; right: 1rem;'
-    };
-
-    let container = document.querySelector(`#toast-container-${position}`);
-    if (!container) {
-      container = document.createElement('div');
-      container.id = `toast-container-${position}`;
-      container.style = `position: fixed; z-index: 9999; ${positions[position]}`;
-      document.body.appendChild(container);
-    }
-
-    const toast = document.createElement('div');
-    toast.className = `toast align-items-center bg-${type} text-white border-0 show mb-2`;
-    toast.role = 'alert';
-    toast.innerHTML = `
-      <div class="d-flex">
-        <div class="toast-body">${message}</div>
-        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Cerrar"></button>
-      </div>
-    `;
-    container.appendChild(toast);
-    setTimeout(() => {
-      toast.classList.remove('show');
-      setTimeout(() => toast.remove(), 300);
-    }, duration);
+    showToast(message, type, position, duration);
   }
 }
 
-// 🧼 Limpia parámetros de notificación
-export function clearNotificationParams(params = ['success', 'error', 'warning', 'info'], delay = 1000) {
-  setTimeout(() => {
-    const url = new URL(window.location);
-    let changed = false;
-    params.forEach(p => {
-      if (url.searchParams.has(p)) {
-        url.searchParams.delete(p);
-        changed = true;
-      }
-    });
-    if (changed) {
-      window.history.replaceState({}, document.title, url.pathname);
-    }
-  }, delay);
-}
-
-// 🧠 Automáticamente detecta y notifica desde URL
-export function notifyFromURL({
-  mode = 'toast',
-  position = 'bottom-right',
-  containerId = 'alert-container',
-  duration = 4000
-} = {}) {
-  const url = new URL(window.location);
-  const types = ['success', 'error', 'warning', 'info'];
-  let matched = false;
+/**
+ * 🚀 Detecta automáticamente mensajes desde URL (?success=...) y muestra
+ * @param {'toast' | 'alert'} mode
+ */
+export function notifyFromURL(mode = 'toast') {
+  const url = new URL(window.location.href);
+  const params = url.searchParams;
+  const types = ['success', 'error', 'info', 'danger', 'warning'];
 
   types.forEach(type => {
-    const msg = url.searchParams.get(type);
-    if (msg) {
-      showNotification(msg, { type, mode, position, containerId, duration });
-      matched = true;
+    const raw = params.get(type);
+    if (!raw) return;
+
+    const msg = decodeURIComponent(raw);
+    const key = `shown_${mode}_${type}_${hash(msg)}`;
+
+    if (!sessionStorage.getItem(key)) {
+      showNotification(msg, { type, mode });
+      sessionStorage.setItem(key, '1');
     }
   });
 
-  if (matched) clearNotificationParams(types);
+  // Limpieza segura
+  if (mode === 'alert') {
+    clearAlertParams();
+  } else {
+    clearToastParams();
+  }
+}
+
+/**
+ * 🧠 Hash simple por contenido
+ */
+function hash(str) {
+  if (!str) return 0;
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    hash = ((hash << 5) - hash) + str.charCodeAt(i);
+    hash |= 0;
+  }
+  return Math.abs(hash);
 }
