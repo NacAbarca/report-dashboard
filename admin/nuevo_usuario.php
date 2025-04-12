@@ -1,43 +1,45 @@
 <?php
+ob_start(); // 🔐 Evita error de headers si hay salida previa
+
 require '../includes/middleware.php';
 require_secure_view('admin');
 require '../includes/db.php';
 
 // 🚨 PROCESAR POST ANTES DE CUALQUIER HTML
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $username = trim($_POST['username'] ?? '');
-    $password = trim($_POST['password'] ?? '');
-    $role     = $_POST['role'] ?? 'user';
+  $username = trim($_POST['username'] ?? '');
+  $password = trim($_POST['password'] ?? '');
+  $role     = $_POST['role'] ?? 'user';
 
-    if ($username && $password) {
-      $check = $conn->prepare("SELECT id FROM users WHERE username = ?");
-      $check->bind_param("s", $username);
-      $check->execute();
-      $check->store_result();
+  if ($username && $password) {
+    $check = $conn->prepare("SELECT id FROM users WHERE username = ?");
+    $check->bind_param("s", $username);
+    $check->execute();
+    $check->store_result();
 
-      if ($check->num_rows > 0) {
-        header("Location: nuevo_usuario.php?error=⚠️ El usuario ya existe");
-        exit;
-      }
-
-      $hash = password_hash($password, PASSWORD_DEFAULT);
-      $stmt = $conn->prepare("INSERT INTO users (username, password, role) VALUES (?, ?, ?)");
-      $stmt->bind_param("sss", $username, $hash, $role);
-
-      if ($stmt->execute()) {
-        header("Location: usuarios.php?success=✅ Usuario creado correctamente");
-      } else {
-        header("Location: nuevo_usuario.php?error=❌ Error al guardar el usuario");
-      }
-      exit;
-    } else {
-      header("Location: nuevo_usuario.php?error=❌ Todos los campos son obligatorios");
+    if ($check->num_rows > 0) {
+      header("Location: nuevo_usuario.php?error=⚠️ El usuario ya existe");
       exit;
     }
-  }
 
-  $page_title = "➕ Nuevo Usuario";
-  require '../components/layout_start.php';
+    $hash = password_hash($password, PASSWORD_DEFAULT);
+    $stmt = $conn->prepare("INSERT INTO users (username, password, role) VALUES (?, ?, ?)");
+    $stmt->bind_param("sss", $username, $hash, $role);
+
+    if ($stmt->execute()) {
+      header("Location: usuarios.php?success=✅ Usuario creado correctamente");
+    } else {
+      header("Location: nuevo_usuario.php?error=❌ Error al guardar el usuario");
+    }
+    exit;
+  } else {
+    header("Location: nuevo_usuario.php?error=❌ Todos los campos son obligatorios");
+    exit;
+  }
+}
+
+$page_title = "➕ Nuevo Usuario";
+require '../components/layout_start.php';
 ?>
 
 <!-- CONTENIDO -->

@@ -1,4 +1,5 @@
 <?php
+$GLOBALS['_startTime'] = microtime(true);
 $page_title = "📊 Dashboard";
 
 require 'includes/middleware.php';
@@ -19,10 +20,7 @@ require 'components/layout_start.php';
 <p>Bienvenido, <?= htmlspecialchars($_SESSION['user']) ?>.</p>
 
 <!-- Aquí podrías incluir cards, estadísticas, gráficos, etc -->
-
-<?php include 'components/layout_end.php'; ?>
-
-
+ 
   <!-- KPIs -->
   <div class="row">
     <!-- KPI: Usuarios activos -->
@@ -61,6 +59,7 @@ require 'components/layout_start.php';
 
     <!-- Puedes seguir agregando más KPIs -->
   </div>
+  <div id="alert-container" class="p-3"></div>
 
   <!-- Gráficos -->
   <div class="row">
@@ -92,8 +91,8 @@ require 'components/layout_start.php';
 </div> <!-- /.container-fluid -->
 
 <!-- Gráficos dinámicos con Chart.js -->
+<?php include 'components/layout_end.php'; ?>
 
-<div id="alert-container" class="p-3"></div>
 <script type="module">
   import { showAlert } from '/assets/js/alertas.js';
   showAlert('⚠️ Esto es una alerta de prueba', 'warning');
@@ -133,4 +132,4 @@ require 'components/layout_start.php';
     });
 </script>
 
-<?php echo "</main></div></div></body></html>"; ?>
+

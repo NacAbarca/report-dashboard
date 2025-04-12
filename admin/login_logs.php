@@ -9,6 +9,7 @@ require '../components/layout_start.php';
 // 🔍 Obtener últimos intentos de login
 $result = $conn->query("SELECT * FROM login_attempts ORDER BY created_at DESC LIMIT 100");
 $logs = $result ? $result->fetch_all(MYSQLI_ASSOC) : [];
+
 ?>
 
 <div class="mb-4 d-flex justify-content-between align-items-center">

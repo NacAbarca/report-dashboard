@@ -1,5 +1,5 @@
 <?php
-
+ob_start();
 $page_title = "🗑️ Eliminar Usuario";
 
 require '../includes/middleware.php';
@@ -24,3 +24,6 @@ if ($stmt->execute()) {
   header("Location: usuarios.php?error=❌ No se pudo eliminar el usuario");
 }
 exit;
+
+ob_end_flush();
+?>
