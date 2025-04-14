@@ -2,10 +2,14 @@
 ob_start();
 $page_title = "🗑️ Eliminar Usuario";
 
+require '../includes/db.php';
+require_once __DIR__ . '/../includes/session_guard.php';
+validate_session_active($conn);
+
 require '../includes/middleware.php';
 require_secure_view('admin');
-require '../includes/db.php';
 require '../components/layout_start.php';
+
 
 // 🔐 Validación ID
 $id = $_GET['id'] ?? null;

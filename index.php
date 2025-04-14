@@ -2,7 +2,12 @@
 $GLOBALS['_startTime'] = microtime(true);
 $page_title = "📊 Dashboard";
 
-require 'includes/middleware.php';
+
+require_once __DIR__ . '/includes/db.php';
+require_once __DIR__ . '/includes/session_guard.php';
+validate_session_active($conn);
+
+require_once __DIR__ . '/includes/middleware.php';
 require_secure_view(['admin','user']);
 require 'components/layout_start.php';
 

@@ -1,105 +1,86 @@
 <?php
-$page_title = "📍 Sesiones Activas";
+$page_title = "🧑‍💻 Sesiones Activas";
 
-require 'includes/middleware.php';
-require_secure_view('user');
-require 'includes/db.php';
-require 'components/layout_start.php';
+
+require_once __DIR__ . '/includes/db.php';
+require_once __DIR__ . '/includes/session_guard.php';
+validate_session_active($conn);
+
+require_once __DIR__ . '/includes/middleware.php';
+require_secure_view(['admin','user']);
+
 
 $username = $_SESSION['user'];
-$current_session = session_id();
 
-// 🔒 Finalizar sesión remota
-if (isset($_GET['kill']) && $_GET['kill'] !== $current_session) {
-  $sid = $_GET['kill'];
-  $stmt = $conn->prepare("DELETE FROM login_attempts WHERE session_id = ? AND username = ?");
-  $stmt->bind_param("ss", $sid, $username);
+// ✅ Mover esto antes del layout para evitar "headers already sent"
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['kill_id'])) {
+  $killId = intval($_POST['kill_id']);
+  $stmt = $conn->prepare("UPDATE login_attempts SET status = 'killed' WHERE id = ? AND username = ?");
+  $stmt->bind_param("is", $killId, $username);
   $stmt->execute();
+
   header("Location: perfil_sesiones.php?success=✅ Sesión finalizada correctamente");
   exit;
 }
 
-// 🔍 Obtener sesiones activas del usuario
-$stmt = $conn->prepare("
-  SELECT ip_address, user_agent, session_id, created_at 
-  FROM login_attempts 
-  WHERE username = ? AND status = 'success' 
-  ORDER BY created_at DESC
-");
+require 'components/layout_start.php';
+
+// 📦 Cargar sesiones del usuario
+$stmt = $conn->prepare("SELECT id, ip_address, user_agent, status, session_id, created_at 
+                        FROM login_attempts 
+                        WHERE username = ? 
+                        ORDER BY created_at DESC");
 $stmt->bind_param("s", $username);
 $stmt->execute();
-$sessions = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+$result = $stmt->get_result();
 ?>
 
-<!-- CONTENIDO -->
+<!-- UI -->
 <div class="mb-4 d-flex justify-content-between align-items-center">
-  <h3 class="text-primary"><i class="fas fa-map-marker-alt me-2"></i>Sesiones Activas</h3>
-  <a href="/perfil.php" class="btn btn-sm btn-outline-secondary">
-    <i class="fas fa-arrow-left me-1"></i> Volver
-  </a>
+  <h3 class="text-primary"><i class="fas fa-history me-2"></i> Sesiones Activas</h3>
+  <a href="perfil.php" class="btn btn-outline-secondary"><i class="fas fa-arrow-left"></i> Volver</a>
 </div>
 
-<div id="alert-container"></div>
-
-<div class="card shadow-sm">
-  <div class="card-body table-responsive">
-    <table class="table table-hover table-sm align-middle">
-      <thead class="table-dark">
-        <tr>
-          <th><i class="fas fa-clock"></i> Fecha</th>
-          <th><i class="fas fa-globe"></i> IP</th>
-          <th><i class="fas fa-desktop"></i> Navegador</th>
-          <th><i class="fas fa-key"></i> ID Sesión</th>
-          <th><i class="fas fa-power-off"></i></th>
-        </tr>
-      </thead>
-      <tbody>
-        <?php foreach ($sessions as $s): ?>
-          <tr class="<?= $s['session_id'] === $current_session ? 'table-success' : '' ?>">
-            <td><?= $s['created_at'] ?></td>
-            <td><code><?= $s['ip_address'] ?></code></td>
-            <td><small><?= substr($s['user_agent'], 0, 60) ?>...</small></td>
-            <td><code><?= substr($s['session_id'], 0, 10) ?>...</code></td>
-            <td>
-              <?php if ($s['session_id'] !== $current_session): ?>
-                <a href="?kill=<?= $s['session_id'] ?>" class="btn btn-sm btn-outline-danger btn-kill" title="Cerrar sesión">
-                  <i class="fas fa-sign-out-alt"></i>
-                </a>
-              <?php else: ?>
-                <span class="badge bg-success"><i class="fas fa-check-circle"></i> Actual</span>
-              <?php endif; ?>
-            </td>
-          </tr>
-        <?php endforeach; ?>
-      </tbody>
-    </table>
-  </div>
-</div>
-
-<script type="module">
-  import {
-    notifyFromURLToast,
-    notifyFromURLSnackbar
-  } from '/assets/js/notification_engine.js';
-
-  // Puedes usar solo uno o ambos
-  notifyFromURLToast();      // Para Bootstrap toast
-  notifyFromURLSnackbar();   // Para snackbars tipo Material
-</script>
-
-
-<script src="/assets/js/perfil_sesiones.js"></script>
-
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-  document.querySelectorAll('.btn-kill').forEach(btn => {
-    btn.addEventListener('click', e => {
-      if (!confirm("¿Cerrar esta sesión remotamente?")) {
-        e.preventDefault();
-      }
-    });
-  });
-});
-</script>
+<table class="table table-striped">
+  <thead class="table-light">
+    <tr>
+      <th>IP</th>
+      <th>User Agent</th>
+      <th>Estado</th>
+      <th>Fecha</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <?php while ($row = $result->fetch_assoc()): ?>
+      <tr>
+        <td><?= htmlspecialchars($row['ip_address']) ?></td>
+        <td><small><?= htmlspecialchars($row['user_agent']) ?></small></td>
+        <td>
+          <?php if ($row['status'] === 'success'): ?>
+            <span class="badge bg-success"><i class="fas fa-check-circle me-1"></i>Activa</span>
+          <?php elseif ($row['status'] === 'failed'): ?>
+            <span class="badge bg-secondary"><i class="fas fa-times-circle me-1"></i>Fallida</span>
+          <?php elseif ($row['status'] === 'killed'): ?>
+            <span class="badge bg-danger"><i class="fas fa-power-off me-1"></i>Cerrada</span>
+          <?php endif; ?>
+        </td>
+        <td><?= date('Y-m-d H:i', strtotime($row['created_at'])) ?></td>
+        <td>
+          <?php if ($row['status'] === 'success'): ?>
+            <form method="POST" style="display:inline-block">
+              <input type="hidden" name="kill_id" value="<?= $row['id'] ?>">
+              <button type="submit" class="btn btn-sm btn-danger btn-kill" title="Desconectar sesión">
+                <i class="fas fa-power-off"></i>
+              </button>
+            </form>
+            <?php else: ?>
+              <span class="text-muted small"><i class="fas fa-lock"></i> Sin acción</span>
+            <?php endif; ?>
+        </td>
+      </tr>
+    <?php endwhile; ?>
+  </tbody>
+</table>
 
 <?php require 'components/layout_end.php'; ?>

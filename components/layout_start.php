@@ -1,5 +1,17 @@
 <?php
-  
+
+// 🧱 Protección avanzada de sesión remota (cerradas por admin)
+if (!isset($_SESSION['user'])) {
+  header("Location: ../login.php");
+  exit;
+}
+
+require_once __DIR__ . '/../includes/db.php';
+require_once __DIR__ . '/../includes/session_guard.php';
+validate_session_active($conn);
+
+require_once __DIR__ . '/../includes/middleware.php';
+
 if (session_status() === PHP_SESSION_NONE) {
   session_start();
 }
@@ -30,12 +42,12 @@ $page_title = $page_title ?? 'Panel de Reportes';
   <div class="d-flex" id="wrapper">
 
     <!-- 📚 Menú lateral -->
-    <?php include 'sidebar.php'; ?>
+    <?php require_once __DIR__ . '/sidebar.php'; ?>
 
     <!-- 🧱 Contenido principal -->
     <div id="page-content-wrapper" class="w-100">
 
-      <?php include 'header.php'; ?>
+      <?php require_once __DIR__ . '/header.php'; ?>
 
       <!-- 💡 Área de contenido dinámico -->
       <main class="container-fluid py-4">

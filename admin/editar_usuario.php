@@ -1,10 +1,16 @@
 <?php
+ob_start();
 $page_title = "✏️ Editar Usuario";
 
-require '../includes/middleware.php';
-require_secure_view(['admin']);
-require '../includes/db.php';
-require '../components/layout_start.php';
+
+require_once __DIR__ . '/../includes/db.php';
+require_once __DIR__ . '/../includes/session_guard.php';
+validate_session_active($conn);
+
+require_once __DIR__ . '/../includes/middleware.php';
+require_secure_view('admin');
+require_once __DIR__ . '/../components/layout_start.php';
+
 
 $id = $_GET['id'] ?? null;
 if (!$id || !is_numeric($id)) {
@@ -90,3 +96,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </form>
 
 <?php require '../components/layout_end.php'; ?>
+
+<?php ob_end_flush(); ?>

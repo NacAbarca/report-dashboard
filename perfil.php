@@ -1,9 +1,14 @@
 <?php
+ob_start();
 $page_title = "👤 Mi Perfil";
 
-require 'includes/middleware.php';
-require_secure_view('user');
-require 'includes/db.php';
+
+require_once __DIR__ . '/includes/db.php';
+require_once __DIR__ . '/includes/session_guard.php';
+validate_session_active($conn);
+
+require_once __DIR__ . '/includes/middleware.php';
+require_secure_view(['admin','user']);
 require 'components/layout_start.php';
 
 // Variables
@@ -106,3 +111,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </form>
 
 <?php require 'components/layout_end.php'; ?>
+ <?php ob_end_flush(); ?>

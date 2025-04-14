@@ -1,5 +1,9 @@
-document.querySelectorAll('.btn-kill').forEach(btn => {
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.btn-kill').forEach(btn => {
     btn.addEventListener('click', e => {
-      if (!confirm("¿Cerrar esta sesión remotamente?")) e.preventDefault();
+      if (!confirm("¿Cerrar esta sesión remotamente?")) {
+        e.preventDefault();
+      }
     });
   });
+});

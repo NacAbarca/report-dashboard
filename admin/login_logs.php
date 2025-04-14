@@ -1,10 +1,15 @@
 <?php
 $page_title = "📊 Auditoría de Accesos";
 
-require '../includes/middleware.php';
-require_secure_view(['user','admin', 'invitado']);
+
 require '../includes/db.php';
+require_once __DIR__ . '/../includes/session_guard.php';
+validate_session_active($conn);
+
+require '../includes/middleware.php';
+require_secure_view('admin');
 require '../components/layout_start.php';
+
 
 // 🔍 Obtener últimos intentos de login
 $result = $conn->query("SELECT * FROM login_attempts ORDER BY created_at DESC LIMIT 100");

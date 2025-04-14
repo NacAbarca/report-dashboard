@@ -1,9 +1,15 @@
 <?php
 ob_start(); // 🔐 Evita error de headers si hay salida previa
 
+
+require '../includes/db.php';
+require_once __DIR__ . '/../includes/session_guard.php';
+validate_session_active($conn);
+
 require '../includes/middleware.php';
 require_secure_view('admin');
-require '../includes/db.php';
+require '../components/layout_start.php';
+
 
 // 🚨 PROCESAR POST ANTES DE CUALQUIER HTML
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
