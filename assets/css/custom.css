@@ -1,14 +1,36 @@
 #sidebar-wrapper {
     min-height: 100vh;
-    background: #343a40;
+  background: #343a40;
+}
+
+#sidebar-wrapper .nav-link:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transition: all 0.2s;
+}
+
+.navbar {
+  z-index: 1040;
+}
+
+/* 🌐 Sidebar fijo en desktop */
+@media (min-width: 992px) {
+  .offcanvas-lg {
+    position: static;
+    width: 240px;
+    height: 100vh;
+    flex-shrink: 0;
+    transform: none !important;
+    visibility: visible !important;
+    background-color: #212529 !important;
+    display: block !important;
+    border-right: 1px solid rgba(255,255,255,0.05);
   }
-  
-  #sidebar-wrapper .nav-link:hover {
-    background: rgba(255, 255, 255, 0.1);
-    transition: all 0.2s;
-  }
-  
-  .navbar {
-    z-index: 1040;
-  }
-  
+
+  /* #page-content-wrapper {
+    margin-left: 240px;
+  } */
+}
+
+.sidebar-desktop {
+  overflow-y: auto;
+}

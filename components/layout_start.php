@@ -38,7 +38,14 @@ $page_title = $page_title ?? 'Panel de Reportes';
 
 <body class="bg-light">
 
-  <!-- 🔲 Estructura general -->
+<!-- 🔓 Navbar móvil -->
+  <nav class="navbar navbar-dark bg-dark d-lg-none px-3">
+    <a class="navbar-brand fw-bold text-info" href="#">📊 Panel</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSidebar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  </nav>
+
   <div class="d-flex" id="wrapper">
 
     <!-- 📚 Menú lateral -->
@@ -51,3 +58,6 @@ $page_title = $page_title ?? 'Panel de Reportes';
 
       <!-- 💡 Área de contenido dinámico -->
       <main class="container-fluid py-4">
+
+      <?php include __DIR__ . '/breadcrumb.php';
+?>

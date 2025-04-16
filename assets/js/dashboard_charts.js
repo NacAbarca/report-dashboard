@@ -1,5 +1,5 @@
 // dashboard_charts.js
-import Chart from '/assets/js/chart.min.js';
+// import Chart from '/assets/js/chart.min.js';
 
 fetch('/charts/data_api.php')
   .then(res => res.json())
@@ -26,6 +26,18 @@ fetch('/charts/data_api.php')
           borderColor: 'rgba(28, 200, 138, 1)',
           backgroundColor: 'rgba(28, 200, 138, 0.2)',
           fill: true
+        }]
+      }
+    });
+
+    new Chart(document.getElementById('chart3'), {
+      type: 'bar',
+      data: {
+        labels: data.labels,
+        datasets: [{
+          label: 'Reportes',
+          data: data.values,
+          backgroundColor: '#4e73df'
         }]
       }
     });

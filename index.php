@@ -9,7 +9,9 @@ validate_session_active($conn);
 
 require_once __DIR__ . '/includes/middleware.php';
 require_secure_view(['admin','user']);
-require 'components/layout_start.php';
+require_once __DIR__ . '/components/layout_start.php';
+require_once __DIR__ . '/components/breadcrumb.php';
+
 
 ?>
 
@@ -69,7 +71,7 @@ require 'components/layout_start.php';
   <!-- Gráficos -->
   <div class="row">
     <!-- Ventas -->
-    <div class="col-lg-6">
+    <div class="col-lg-4">
       <div class="card shadow mb-4">
         <div class="card-header py-3">
           <h6 class="m-0 font-weight-bold text-primary">📈 Ventas</h6>
@@ -81,7 +83,7 @@ require 'components/layout_start.php';
     </div>
 
     <!-- Ingresos -->
-    <div class="col-lg-6">
+    <div class="col-lg-4">
       <div class="card shadow mb-4">
         <div class="card-header py-3">
           <h6 class="m-0 font-weight-bold text-primary">📉 Ingresos</h6>
@@ -91,50 +93,24 @@ require 'components/layout_start.php';
         </div>
       </div>
     </div>
+
+    <!-- reportes -->
+    <div class="col-lg-4">
+      <div class="card shadow mb-4">
+        <div class="card-header py-3">
+          <h6 class="m-0 font-weight-bold text-primary">📉 Reportes</h6>
+        </div>
+        <div class="card-body">
+          <canvas id="chart3"></canvas>
+        </div>
+      </div>
+    </div>
+
   </div>
 
 </div> <!-- /.container-fluid -->
 
 <!-- Gráficos dinámicos con Chart.js -->
 <?php include 'components/layout_end.php'; ?>
-
-<script type="module">
-  import { showAlert } from '/assets/js/alertas.js';
-  showAlert('⚠️ Esto es una alerta de prueba', 'warning');
-</script>
-
-<script src="/assets/js/chart.min.js"></script>
-
-<script>
-  fetch('charts/data_api.php')
-    .then(res => res.json())
-    .then(data => {
-      new Chart(document.getElementById('chart1'), {
-        type: 'bar',
-        data: {
-          labels: data.labels,
-          datasets: [{
-            label: 'Ventas',
-            data: data.values,
-            backgroundColor: 'rgba(78, 115, 223, 0.5)'
-          }]
-        }
-      });
-
-      new Chart(document.getElementById('chart2'), {
-        type: 'line',
-        data: {
-          labels: data.labels,
-          datasets: [{
-            label: 'Ingresos',
-            data: data.values,
-            borderColor: 'rgba(28, 200, 138, 1)',
-            backgroundColor: 'rgba(28, 200, 138, 0.2)',
-            fill: true
-          }]
-        }
-      });
-    });
-</script>
 
 
