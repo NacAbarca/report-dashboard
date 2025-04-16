@@ -34,13 +34,13 @@ $menu = [
     'roles' => ['admin']
   ],
   [
-    'title' => '📑 Reportes (Admin)',
+    'title' => '📑 Reportes',
     'url' => '/admin/reportes.php',
     'icon' => 'fas fa-bug',
     'roles' => ['admin']
   ],
   [
-    'title' => 'Usuarios (Admin)',
+    'title' => 'Usuarios',
     'url' => '/admin/usuarios.php',
     'icon' => 'fas fa-users',
     'roles' => ['admin']
