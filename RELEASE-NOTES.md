@@ -1,84 +1,54 @@
-## 📦 Release Notes - v1.2.0 (2025-04-19)
+# 🚀 Versión v1.1.0 – Panelería de Reportes Generalizada
 
-### ✅ Cambios principales
-
-- 🧠 Sistema de control de sesiones activas y cierre remoto
-- 👤 Edición de perfil con avatar
-- 🔔 Reescritura de sistema de notificaciones inteligentes
-- 📊 UI mejorado (sidebar, header, responsividad)
-- 🔐 Protección de rutas reforzada (`middleware.php` + `session_guard.php`)
-
-### 🛠 Refactor
-
-- Migración a módulos + layouts dinámicos
-- Arreglos visuales en vista móvil / escritorio
-- Código limpio con `__DIR__` y protección doble de headers
-
-### 📁 Archivos afectados
-
-- `perfil.php`, `perfil_sesiones.php`, `session_guard.php`
-- `assets/js/notifier.js`, `toast.js`, `alertas.js`
-- `components/layout_*.php`, `sidebar.php`
-- `includes/middleware.php`, `auth.php`, `db.php`
+📅 Fecha: Abril 2025  
+👨‍💻 Autor: Ignacio Abarca  
+🔖 Tag: v1.1.0  
+🔗 [Repositorio GitHub](https://github.com/NacAbarca/report-dashboard)
 
 ---
 
-# 📝 Release Notes – v1.1.0
+## ✅ Mejoras y Funcionalidades Nuevas
 
-📅 Fecha de publicación: 2025-04-14  
-👨‍💻 Autor: Nac Abarca + Jake 🥷
-
----
-
-## 🆕 Mejoras y Nuevas Funcionalidades
-
-### 🔐 Seguridad y Gestión de Sesión
-- ✅ Sistema de *sesiones remotas*: registro, visualización y control de sesiones activas
-- ✅ Función `validate_session_active()` para validar si una sesión fue *cerrada remotamente*
-- ✅ Middleware `session_guard.php` que intercepta accesos con sesiones *killed*
-
-### 🧱 Backend y Middleware
-- 🛡️ Refactor total de `layout_start.php` para incluir:
-  - Conexión segura (`db.php`)
-  - Validación por middleware y sesión
-- Modularización clara por componentes
-
-### 🧰 Corrección de Errores
-- 🛠️ Warning `headers already sent` solucionado
-- 🧪 Fix en orden de includes con `__DIR__`
-- 🧩 Validación de roles por `require_secure_view()`
+- 🔐 Validación activa de sesiones (`session_guard.php`)
+- 💣 Sistema de cierre remoto (`perfil_sesiones.php`)
+- 📱 Interfaz adaptativa mejorada (menú responsive)
+- 🎨 Mejoras visuales en componentes y layout general
+- 📝 Documentación profesional en `proyecto_panel_reportes.md`
 
 ---
 
-## 📊 Dashboard / Sesiones
+## 📁 Archivos Modificados
 
-- 🔍 Vista de sesiones activas con `perfil_sesiones.php`
-- 🔘 Botón para *cerrar sesión remota* con `kill_sesiones.php`
-- 🧠 Control de `session_id` por usuario
-- ✅ Verificación de estado: `Activa`, `Fallida`, `Cerrada`
-
----
-
-## 🧪 QA Completado
-
-| Test | Estado |
-|------|--------|
-| Cierre de sesión remota | ✅ |
-| Render seguro de header/footer | ✅ |
-| Redirección si `status = killed` | ✅ |
-| Validación por rol y sesión | ✅ |
-| Dashboard, login y registro | ✅ |
+- `layout_start.php` y `middleware.php`: protección reforzada
+- `perfil.php` y `perfil_sesiones.php`: gestión completa de sesiones activas
+- `toast.js`, `notifier.js`: limpieza de alertas desde URL
+- `README.md`, `RELEASE-NOTES.md`, `CHANGELOG.md`: actualizados
 
 ---
 
-## 🚀 Próximos objetivos v1.2.0
+## 🛡️ Seguridad
 
-- 📤 Exportación de sesiones a CSV/PDF
-- 🧪 Auditoría por IP/User Agent
-- 🧱 UI para administración de múltiples cuentas
-- 📧 Notificación por email al cerrar sesión remotamente
+- Middleware avanzado
+- Hash de contraseñas y sesiones validadas
+- Auditoría con `login_logs`
 
 ---
 
-> 🛠️ Powered by: Jake & Nac – Versión Estable para Entorno Producción 🧠  
-> `git tag v1.1.0` + `git push origin main --tags` para liberar en GitHub 🚀
+## 🧪 QA
+
+- Validado en entorno local y hosting remoto
+- 🧠 Test de validación remota OK
+- ✅ Sesión remota cerrada y bloqueada correctamente
+
+---
+
+## 🛠️ Siguiente versión `v1.2.0` (en desarrollo)
+
+- 📤 Exportación de sesiones
+- 📈 Auditoría por IP y User-Agent
+- 🔔 Notificaciones vía email
+- 🔒 Multi-admin
+
+---
+
+MIT License – Código abierto, libre distribución y crédito requerido.

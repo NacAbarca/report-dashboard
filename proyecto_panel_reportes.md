@@ -73,14 +73,14 @@ Módulos CRUD, autenticación, notificaciones, dashboard con gráficos, gestión
 
 ## 7. 📦 Fases del Proyecto
 
-| Fase | Estado |
-|------|--------|
-| Análisis | ✅ |
-| Diseño UI / UX | ✅ |
-| Implementación inicial | ✅ |
-| Pruebas QA | ✅ |
-| Piloto | ✅ |
-| Producción | ✅ |
+| Fase                   | Estado |
+|------------------------|--------|
+| Análisis                 | ✅ |
+| Diseño UI / UX           | ✅ |
+| Implementación inicial   | ✅ |
+| Pruebas QA               | ✅ |
+| Piloto                   | ✅ |
+| Producción               | ✅ |
 
 ---
 
