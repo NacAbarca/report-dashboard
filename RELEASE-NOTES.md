@@ -1,3 +1,28 @@
+## 📦 Release Notes - v1.2.0 (2025-04-19)
+
+### ✅ Cambios principales
+
+- 🧠 Sistema de control de sesiones activas y cierre remoto
+- 👤 Edición de perfil con avatar
+- 🔔 Reescritura de sistema de notificaciones inteligentes
+- 📊 UI mejorado (sidebar, header, responsividad)
+- 🔐 Protección de rutas reforzada (`middleware.php` + `session_guard.php`)
+
+### 🛠 Refactor
+
+- Migración a módulos + layouts dinámicos
+- Arreglos visuales en vista móvil / escritorio
+- Código limpio con `__DIR__` y protección doble de headers
+
+### 📁 Archivos afectados
+
+- `perfil.php`, `perfil_sesiones.php`, `session_guard.php`
+- `assets/js/notifier.js`, `toast.js`, `alertas.js`
+- `components/layout_*.php`, `sidebar.php`
+- `includes/middleware.php`, `auth.php`, `db.php`
+
+---
+
 # 📝 Release Notes – v1.1.0
 
 📅 Fecha de publicación: 2025-04-14  

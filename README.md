@@ -1,3 +1,19 @@
+# 📊 Panel de Reportes Generalizada
+
+**Versión actual:** `v1.2.0`  
+**Autor:** Ignacio Abarca  
+**Repositorio:** [GitHub - NacAbarca/report-dashboard](https://github.com/NacAbarca/report-dashboard)
+
+## 🔥 Últimas novedades (v1.2.0)
+
+- Validación remota de sesiones activas
+- Control de sesión kill
+- Editor de perfil + avatar
+- Notificaciones inteligentes
+- Reestructuración visual sidebar
+- Auditoría de accesos mejorada
+
+
 # 📝 Release Notes - v1.0.0
 
 📦 **Versión estable inicial del sistema de panel de reportes (Dashboard Web App)**  
@@ -100,15 +116,5 @@ Contribuciones bienvenidas vía Pull Request 🤝
 > **Powered by:** Jake 🥷 + Dev Sensei 💻  
 > *Tu MVP ahora tiene Release Pro 💥*
 
-```
-
----
-
-## ✅ Git Commit del Release Notes
-
-```bash
-git add RELEASE-NOTES.md
-git commit -m "📄 release-notes v1.0.0: resumen completo de módulos, funcionalidades y roadmap"
-```
 
 ---
