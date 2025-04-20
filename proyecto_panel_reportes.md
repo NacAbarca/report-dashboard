@@ -4,6 +4,7 @@
 **Rol:** Arquitecto / Ingeniero de Software  
 **Repositorio:** [GitHub - Nac Abarca](https://github.com/NacAbarca/report-dashboard)  
 **Fecha:** Abril 2025  
+**Nombre del proryecto:** Proyecto_panel_reportes.md  
 **Versión:** v1.0.0 (release estable)
 
 ---
