@@ -2,6 +2,7 @@
 
 $role = $_SESSION['role'] ?? 'user';
 $current_url = $_SERVER['PHP_SELF'];
+require_once __DIR__ .'/../includes/menu_config.php';
 
 $menu = [
   [

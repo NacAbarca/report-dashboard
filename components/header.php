@@ -35,4 +35,9 @@ $roleEmoji = [
     </div>
 
   </div>
+
+  <div class="form-check form-switch text-light ms-auto me-3">
+    <input class="form-check-input" type="checkbox" id="themeSwitch">
+    <label class="form-check-label" for="themeSwitch">🌙</label>
+  </div>
 </nav>

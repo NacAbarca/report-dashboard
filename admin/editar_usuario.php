@@ -62,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <h3 class="text-warning m-0">Editar Usuario</h3>
 </div>
 
-<?php if ($msg): ?>
+<?php if (isset($msg) && $msg):  ?>
   <div class="alert alert-danger"><?= htmlspecialchars($msg) ?></div>
 <?php endif; ?>
 

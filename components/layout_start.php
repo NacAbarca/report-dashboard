@@ -36,11 +36,12 @@ $page_title = $page_title ?? 'Panel de Reportes';
   <link href="/assets/css/snackbar.css" rel="stylesheet">
 </head>
 
-<body class="bg-light">
+<body class="bg-light dark-mode">
+
 
 <!-- 🔓 Navbar móvil -->
   <nav class="navbar navbar-dark bg-dark d-lg-none px-3">
-    <a class="navbar-brand fw-bold text-info" href="#">📊 Panel</a>
+    <a class="navbar-brand fw-bold text-info" href="#">📊 Panel--</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSidebar">
       <span class="navbar-toggler-icon"></span>
     </button>

@@ -1,5 +1,8 @@
+/* ============================================= */
+/* 🧱 Sidebar base */
+/* ============================================= */
 #sidebar-wrapper {
-    min-height: 100vh;
+  min-height: 100vh;
   background: #343a40;
 }
 
@@ -12,25 +15,133 @@
   z-index: 1040;
 }
 
-/* 🌐 Sidebar fijo en desktop */
-@media (min-width: 992px) {
-  .offcanvas-lg {
-    position: static;
-    width: 240px;
-    height: 100vh;
-    flex-shrink: 0;
-    transform: none !important;
-    visibility: visible !important;
-    background-color: #212529 !important;
-    display: block !important;
-    border-right: 1px solid rgba(255,255,255,0.05);
-  }
+#page-content-wrapper {
+  transition: margin-left 0.3s ease;
+}
 
-  /* #page-content-wrapper {
-    margin-left: 240px;
-  } */
+/* Sidebar visible en desktop */
+@media (min-width: 992px) {
+  body.sidebar-open #page-content-wrapper {
+    margin-left: 240px; /* se mueve automáticamente */
+  }
+}
+
+/* Sidebar oculto */
+@media (min-width: 992px) {
+  body.sidebar-collapsed #page-content-wrapper {
+    margin-left: 0 !important;
+  }
 }
 
 .sidebar-desktop {
   overflow-y: auto;
+}
+
+/* ============================================= */
+/* 🌙 Tema Oscuro */
+/* ============================================= */
+body.dark-mode {
+  background-color: #0d1117 !important;
+  color: #f8f9fa !important;
+}
+
+.dark-mode .navbar,
+.dark-mode .sidebar,
+.dark-mode .offcanvas,
+.dark-mode .bg-light {
+  background-color: #0d1117 !important;
+  color: #f8f9fa !important;
+}
+
+.dark-mode .card,
+.dark-mode .card-body,
+.dark-mode .card-header {
+  background-color: #161b22 !important;
+  color: #f8f9fa !important;
+  border-color: #30363d !important;
+}
+
+.dark-mode .table {
+  background-color: #161b22 !important;
+  color: #f8f9fa !important;
+}
+
+.dark-mode .table thead th {
+  background-color: #21262d !important;
+}
+
+.dark-mode .nav-link {
+  color: #adb5bd !important;
+}
+
+.dark-mode .nav-link.active,
+.dark-mode .nav-link:hover {
+  color: #0dcaf0 !important;
+}
+
+.dark-mode footer {
+  background-color: #0d1117 !important;
+  color: #8b949e !important;
+}
+
+/* ============================================= */
+/* ☀️ Tema Claro */
+/* ============================================= */
+body.light-mode {
+  background-color: #f9fafb !important;
+  color: #212529 !important;
+}
+
+.light-mode .navbar,
+.light-mode .sidebar,
+.light-mode .offcanvas,
+.light-mode .bg-dark {
+  background-color: #ffffff !important;
+  color: #212529 !important;
+  border-bottom: 1px solid #dee2e6 !important;
+}
+
+.light-mode .card,
+.light-mode .card-body,
+.light-mode .card-header {
+  background-color: #ffffff !important;
+  color: #212529 !important;
+  border-color: #dee2e6 !important;
+}
+
+.light-mode .table {
+  background-color: #ffffff !important;
+  color: #212529 !important;
+}
+
+.light-mode .table thead th {
+  background-color: #f1f3f5 !important;
+}
+
+.light-mode .nav-link {
+  color: #212529 !important;
+}
+
+.light-mode .nav-link.active,
+.light-mode .nav-link:hover {
+  color: #0d6efd !important;
+  background-color: rgba(13,110,253,0.1);
+  border-radius: 0.25rem;
+}
+
+.light-mode footer {
+  background-color: #ffffff !important;
+  color: #6c757d !important;
+  border-top: 1px solid #dee2e6 !important;
+}
+
+/* ============================================= */
+/* ✨ Transiciones suaves entre temas */
+/* ============================================= */
+body,
+.navbar,
+.sidebar,
+.card,
+.table {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
