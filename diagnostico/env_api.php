@@ -5,11 +5,11 @@ function run_full_diagnostic(): array {
     'auth' => check_session(),
     'mysql' => check_mysql_connection(),
     'insert' => test_mysql_insert(),
-    'layout_start' => check_file('../components/layout_start.php'),
-    'layout_end' => check_file('../components/layout_end.php'),
-    'toast_js' => check_file('../assets/js/toast.js'),
-    'snackbar_js' => check_file('../assets/js/snackbar.js'),
-    'notification_engine_js' => check_file('../assets/js/notification_engine.js'),
+    'layout_start' => check_file(__DIR__ . '/../components/layout_start.php'),
+    'layout_end' => check_file(__DIR__ . '/../components/layout_end.php'),
+    'toast_js' => check_file(__DIR__ . '/../assets/js/toast.js'),
+    'snackbar_js' => check_file(__DIR__ . '/../assets/js/snackbar.js'),
+    'notification_engine_js' => check_file(__DIR__ . '/../assets/js/notification_engine.js'),
     'csp_js' => check_csp_safety()
   ];
 }
@@ -26,24 +26,54 @@ function check_session(): array {
 }
 
 function check_mysql_connection(): array {
-  require_once '../includes/db.php';
+  require_once __DIR__ . '/../includes/db.php';
   global $conn;
+
+  try {
+    $ok = $conn->query('SELECT 1') !== false;
+  } catch (Throwable $e) {
+    $ok = false;
+  }
+
   return [
     'label' => 'Conexión MySQL',
-    'ok' => $conn && $conn->ping(),
+    'ok' => $conn && $ok,
     'message' => $conn ? 'Conexión exitosa a MySQL' : 'Error de conexión'
   ];
 }
 
 function test_mysql_insert(): array {
   global $conn;
-  $sql = "INSERT INTO login_attempts (username, status, ip_address, user_agent, session_id) VALUES ('diagnostico', 'success', '::1', 'test-agent', 'diag123')";
-  $ok = $conn->query($sql);
-  return [
-    'label' => 'Inserción de prueba',
-    'ok' => $ok,
-    'message' => $ok ? 'Inserción de test completada' : 'Error de test'
-  ];
+  $sessionId = 'diag-' . bin2hex(random_bytes(6));
+
+  try {
+    $stmt = $conn->prepare(
+      "INSERT INTO login_attempts (username, status, ip_address, user_agent, session_id) VALUES (?, ?, ?, ?, ?)"
+    );
+    $username = 'diagnostico';
+    $status = 'success';
+    $ip = '::1';
+    $userAgent = 'test-agent';
+
+    $stmt->bind_param("sssss", $username, $status, $ip, $userAgent, $sessionId);
+    $stmt->execute();
+
+    $cleanup = $conn->prepare("DELETE FROM login_attempts WHERE session_id = ?");
+    $cleanup->bind_param("s", $sessionId);
+    $cleanup->execute();
+
+    return [
+      'label' => 'Inserción de prueba',
+      'ok' => true,
+      'message' => 'Inserción de test completada'
+    ];
+  } catch (Throwable $e) {
+    return [
+      'label' => 'Inserción de prueba',
+      'ok' => false,
+      'message' => 'Error de test: ' . $e->getMessage()
+    ];
+  }
 }
 
 function check_file(string $path): array {
@@ -58,9 +88,9 @@ function check_csp_safety(): array {
   $unsafe = false;
 
   $js_files = [
-    '../assets/js/toast.js',
-    '../assets/js/snackbar.js',
-    '../assets/js/notification_engine.js'
+    __DIR__ . '/../assets/js/toast.js',
+    __DIR__ . '/../assets/js/snackbar.js',
+    __DIR__ . '/../assets/js/notification_engine.js'
   ];
 
   foreach ($js_files as $file) {
