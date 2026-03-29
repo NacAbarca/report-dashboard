@@ -1,37 +1,38 @@
 # Release Notes
 
-## v1.2.0 - 2026-03-28
+## v1.2.1 - 2026-03-29
 
-Tag actual: `v1.2.0`
+Tag actual: `v1.2.1`
 
 ### Cambios principales
-- Integracion de MySQL configurable para Railway mediante variables de entorno.
-- Soporte para `MYSQL_URL`, `DATABASE_URL` y variables `MYSQL*` o `DB_*`.
-- Fallback local seguro a `localhost` para desarrollo.
-- Esquema minimo agregado para inicializar una base vacia con `users` y `login_attempts`.
-- Diagnostico de entorno ajustado para ejecutar pruebas de conexion e insercion con rutas seguras.
+- Correccion del guard de sesion en `login.php`.
+- Correccion del registro publico en `registrar.php`.
+- Correccion del alta de usuarios admin en `admin/nuevo_usuario.php`.
+- Registro de intentos fallidos en `includes/auth.php`.
+- Normalizacion de estados de sesiones a `success`, `fail` y `killed`.
 
 ### Archivos clave
-- `includes/db.php`
-- `diagnostico/env_api.php`
-- `database/schema_minimo.sql`
-- `.env.example`
-- `README.md`
+- `login.php`
+- `registrar.php`
+- `admin/nuevo_usuario.php`
+- `includes/auth.php`
+- `perfil_sesiones.php`
+- `components/layout_start.php`
 
 ### Validacion realizada
-- Conexion real validada contra Railway.
-- Creacion de tablas `users` y `login_attempts`.
-- Insercion de prueba y limpieza posterior en `login_attempts`.
 - Verificacion de sintaxis PHP sobre los archivos modificados.
+- Login exitoso verificado con escritura `success` en `login_attempts`.
+- Login fallido verificado con escritura `fail` en `login_attempts`.
+- Flujo de usuarios corregido para evitar 404 en registro y duplicacion de layout.
 
 ### Notas operativas
 - `main` es la rama principal y sigue `origin/main`.
-- La rama feature de Railway ya fue mergeada y eliminada.
-- El tag `v1.2.0` fue corregido para apuntar al merge actual de `main`.
+- El tag `v1.2.1` apunta al commit `c8b5e89`.
+- `v1.2.0` queda como release de integracion de Railway y `v1.2.1` como release de estabilizacion del flujo de autenticacion.
 
-## Proxima version sugerida: v1.2.1
+## Proxima version sugerida: v1.2.2
 
 ### Siguiente foco
-- Crear usuario administrador inicial para la base `railway`.
-- Definir bootstrap de datos iniciales para ambientes vacios.
-- Consolidar el flujo de despliegue y configuracion del `.env`.
+- Definir seed inicial opcional para entornos vacios.
+- Revisar cierre de auto-registro publico en produccion si aplica.
+- Limpiar scripts de prueba embebidos en layout y documentar deploy final.

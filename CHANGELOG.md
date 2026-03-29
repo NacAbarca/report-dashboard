@@ -1,19 +1,22 @@
 ## [Unreleased]
 
-### Added
-- Soporte de configuracion MySQL por variables de entorno para Railway.
-- Archivo `database/schema_minimo.sql` para inicializar `users` y `login_attempts`.
-- Archivo `.env.example` con plantilla de conexion.
+## [v1.2.1] - 2026-03-29
+
+### Fixed
+- Inicio de sesion corregido en `login.php` con `session_start()` antes de validar `$_SESSION`.
+- Formulario de `registrar.php` corregido para publicar al archivo real.
+- Alta de usuarios admin corregida en `admin/nuevo_usuario.php` eliminando doble carga de layout.
+- Registro de intentos fallidos agregado en `includes/auth.php`.
+- Render de estados de sesiones normalizado a `success`, `fail` y `killed`.
+- Inicio de sesion temprano corregido en `components/layout_start.php`.
 
 ### Changed
-- Refactor de `includes/db.php` para soportar `MYSQL_URL`, `DATABASE_URL`, `MYSQL*` y `DB_*`.
-- Actualizacion de `diagnostico/env_api.php` para ejecutar validaciones seguras desde web y CLI.
-- Documentacion de instalacion y conexion en `README.md` y `RELEASE-NOTES.md`.
+- Rutas de assets en `registrar.php` alineadas con `sbadmin`.
+- Notificaciones de error en `registrar.php` integradas al sistema actual.
 
 ### Verified
-- Conexion real a Railway.
-- Insercion de prueba en `login_attempts`.
-- Creacion de tablas base en una base vacia.
+- `php -l` sobre `login.php`, `registrar.php`, `admin/nuevo_usuario.php`, `includes/auth.php`, `perfil_sesiones.php` y `components/layout_start.php`.
+- Login exitoso y fallido verificados contra Railway con inserciones `success` y `fail` en `login_attempts`.
 
 ## [v1.2.0] - 2025-04-20
 
