@@ -17,8 +17,11 @@ $logs = $result ? $result->fetch_all(MYSQLI_ASSOC) : [];
 
 ?>
 
-<div class="mb-4 d-flex justify-content-between align-items-center">
-  <h3 class="text-primary m-0"><i class="fas fa-shield-alt me-2"></i>Auditoría de Logins</h3>
+<div class="app-panel-header">
+  <div class="app-panel-header-inner">
+    <h3 class="app-section-title m-0"><i class="fas fa-shield-alt me-2"></i>Auditoría de Logins</h3>
+    <p class="app-panel-subtitle">Revisa intentos recientes con estado, origen e información de navegador sin perder contraste en tema oscuro o claro.</p>
+  </div>
   <a href="/admin/usuarios.php" class="btn btn-outline-secondary btn-sm">
     <i class="fas fa-arrow-left"></i> Volver
   </a>
@@ -26,7 +29,7 @@ $logs = $result ? $result->fetch_all(MYSQLI_ASSOC) : [];
 
 <div id="alert-container"></div>
 
-<div class="card shadow-sm">
+<div class="card shadow-sm app-table-card">
   <div class="card-body">
     <div class="table-responsive">
       <table class="table table-hover table-sm align-middle">
@@ -46,10 +49,17 @@ $logs = $result ? $result->fetch_all(MYSQLI_ASSOC) : [];
               <tr>
                 <td><?= $i + 1 ?></td>
                 <td><?= htmlspecialchars($log['username'] ?? '—') ?></td>
-                <td><code><?= $log['ip_address'] ?></code></td>
-                <td><small><?= substr($log['user_agent'], 0, 45) ?>...</small></td>
+                <td><code class="app-code"><?= htmlspecialchars($log['ip_address'] ?? '—') ?></code></td>
+                <td><small><?= htmlspecialchars(mb_strimwidth($log['user_agent'] ?? '—', 0, 72, '...')) ?></small></td>
                 <td>
-                  <span class="badge bg-<?= $log['status'] === 'success' ? 'success' : 'danger' ?>">
+                  <?php
+                    $badgeClass = match ($log['status']) {
+                      'success' => 'success',
+                      'killed' => 'warning',
+                      default => 'danger',
+                    };
+                  ?>
+                  <span class="badge bg-<?= $badgeClass ?>">
                     <?= strtoupper($log['status']) ?>
                   </span>
                 </td>
@@ -57,7 +67,7 @@ $logs = $result ? $result->fetch_all(MYSQLI_ASSOC) : [];
               </tr>
             <?php endforeach; ?>
           <?php else: ?>
-            <tr><td colspan="6" class="text-center text-muted">Sin registros aún.</td></tr>
+            <tr><td colspan="6" class="empty-state">Sin registros aún.</td></tr>
           <?php endif; ?>
         </tbody>
       </table>

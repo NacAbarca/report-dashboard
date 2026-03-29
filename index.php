@@ -20,11 +20,16 @@ require_once __DIR__ . '/components/breadcrumb.php';
 
   <!-- Título -->
   <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800"><?= $page_title ?></h1>
+    <div>
+      <h1 class="h3 mb-1 app-page-title"><?= $page_title ?></h1>
+      <p class="app-page-subtitle">Resumen operativo del panel con accesos, métricas y actividad reciente.</p>
+    </div>
   </div>
 
-<h1 class="h4 mb-4 text-primary">📊 Panel de Reportes</h1>
-<p>Bienvenido, <?= htmlspecialchars($_SESSION['user']) ?>.</p>
+<div class="mb-4">
+  <h2 class="h5 app-section-title mb-1">Panel de Reportes</h2>
+  <p class="app-page-subtitle">Bienvenido, <?= htmlspecialchars($_SESSION['user']) ?>.</p>
+</div>
 
 <!-- Aquí podrías incluir cards, estadísticas, gráficos, etc -->
  
@@ -32,12 +37,12 @@ require_once __DIR__ . '/components/breadcrumb.php';
   <div class="row">
     <!-- KPI: Usuarios activos -->
     <div class="col-xl-3 col-md-6 mb-4">
-      <div class="card border-left-primary shadow h-100 py-2">
+      <div class="card app-stat-card border-left-primary shadow h-100 py-2">
         <div class="card-body">
           <div class="row align-items-center">
             <div class="col">
-              <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Usuarios activos</div>
-              <div class="h5 mb-0 font-weight-bold text-gray-800">134</div>
+              <div class="app-kpi-label text-primary mb-1">Usuarios activos</div>
+              <div class="h5 mb-0 font-weight-bold app-kpi-value">134</div>
             </div>
             <div class="col-auto">
               <i class="fas fa-users fa-2x text-gray-300"></i>
@@ -49,12 +54,12 @@ require_once __DIR__ . '/components/breadcrumb.php';
 
     <!-- KPI: Ingresos mensuales -->
     <div class="col-xl-3 col-md-6 mb-4">
-      <div class="card border-left-success shadow h-100 py-2">
+      <div class="card app-stat-card border-left-success shadow h-100 py-2">
         <div class="card-body">
           <div class="row align-items-center">
             <div class="col">
-              <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Ingresos Mensuales</div>
-              <div class="h5 mb-0 font-weight-bold text-gray-800">$24,000</div>
+              <div class="app-kpi-label text-success mb-1">Ingresos Mensuales</div>
+              <div class="h5 mb-0 font-weight-bold app-kpi-value">$24,000</div>
             </div>
             <div class="col-auto">
               <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -112,5 +117,3 @@ require_once __DIR__ . '/components/breadcrumb.php';
 
 <!-- Gráficos dinámicos con Chart.js -->
 <?php include 'components/layout_end.php'; ?>
-
-

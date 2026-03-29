@@ -76,20 +76,20 @@ $menu = [
 ];
 ?>
 
-<ul class="nav flex-column">
+<ul class="nav flex-column app-menu">
 
   <?php foreach ($menu as $item): ?>
     <?php if (isset($item['separator']) && in_array($role, $item['roles'])): ?>
 
-      <li class="nav-item mt-3 mb-1 text-info small text-uppercase">
+      <li class="nav-item mt-3 mb-1 app-menu-separator text-uppercase">
         <?= $item['separator'] ?>
       </li>
 
     <?php elseif (in_array($role, $item['roles'])): ?>
-      <?php $active = (strpos($current_url, $item['url']) !== false) ? 'active fw-bold text-info' : 'text-white'; ?>
+      <?php $active = (strpos($current_url, $item['url']) !== false) ? 'active fw-bold' : ''; ?>
 
       <li class="nav-item mb-2">
-        <a class="nav-link <?= $active ?>" href="<?= $item['url'] ?>">
+        <a class="nav-link app-nav-link <?= $active ?>" href="<?= $item['url'] ?>">
           <i class="<?= $item['icon'] ?>"></i>
           <span class="ms-2"><?= $item['title'] ?></span>
         </a>

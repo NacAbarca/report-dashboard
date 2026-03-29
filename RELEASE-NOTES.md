@@ -1,36 +1,34 @@
 # Release Notes
 
-## v1.2.1 - 2026-03-29
+## v1.2.2 - 2026-03-29
 
-Tag actual: `v1.2.1`
+Tag actual: `v1.2.2`
 
 ### Cambios principales
-- Correccion del guard de sesion en `login.php`.
-- Correccion del registro publico en `registrar.php`.
-- Correccion del alta de usuarios admin en `admin/nuevo_usuario.php`.
-- Registro de intentos fallidos en `includes/auth.php`.
-- Normalizacion de estados de sesiones a `success`, `fail` y `killed`.
+- Refinamiento visual completo del tema dark/light.
+- Correccion de contraste en tablas, cards, dropdowns y formularios.
+- Navbar, sidebar y footer adaptados a desktop y mobile con mejor consistencia Bootstrap.
+- Mejora visual de `usuarios`, `auditoria`, `perfil` y `sesiones`.
+- `README.md` actualizado con la nueva version actual.
 
 ### Archivos clave
-- `login.php`
-- `registrar.php`
-- `admin/nuevo_usuario.php`
-- `includes/auth.php`
-- `perfil_sesiones.php`
-- `components/layout_start.php`
+- `assets/css/custom.css`
+- `components/header.php`
+- `components/sidebar.php`
+- `components/menu.php`
+- `components/footer.php`
+- `index.php`
 
 ### Validacion realizada
-- Verificacion de sintaxis PHP sobre los archivos modificados.
-- Login exitoso verificado con escritura `success` en `login_attempts`.
-- Login fallido verificado con escritura `fail` en `login_attempts`.
-- Flujo de usuarios corregido para evitar 404 en registro y duplicacion de layout.
+- Verificacion de sintaxis PHP sobre `admin/usuarios.php`, `admin/login_logs.php`, `perfil.php` y `perfil_sesiones.php`.
+- Ajuste de estilos para tablas y shell de aplicacion sin romper el layout existente.
 
 ### Notas operativas
 - `main` es la rama principal y sigue `origin/main`.
-- El tag `v1.2.1` apunta al commit `c8b5e89`.
-- `v1.2.0` queda como release de integracion de Railway y `v1.2.1` como release de estabilizacion del flujo de autenticacion.
+- `v1.2.1` queda como release de estabilizacion de autenticacion.
+- `v1.2.2` corresponde al ajuste visual dark/light y responsive.
 
-## Proxima version sugerida: v1.2.2
+## Proxima version sugerida: v1.2.3
 
 ### Siguiente foco
 - Definir seed inicial opcional para entornos vacios.

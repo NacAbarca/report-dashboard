@@ -39,8 +39,8 @@ $page_title = $page_title ?? 'Panel de Reportes';
 
 
 <!-- 🔓 Navbar móvil -->
-  <nav class="navbar navbar-dark bg-dark d-lg-none px-3">
-    <a class="navbar-brand fw-bold text-info" href="#">📊 Panel--</a>
+  <nav class="navbar app-mobile-nav d-lg-none px-3">
+    <a class="navbar-brand app-brand" href="#">📊 Panel</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSidebar">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -57,7 +57,7 @@ $page_title = $page_title ?? 'Panel de Reportes';
       <?php require_once __DIR__ . '/header.php'; ?>
 
       <!-- 💡 Área de contenido dinámico -->
-      <main class="container-fluid py-4">
+      <main class="container-fluid py-4 app-main">
 
       <?php
         // require_once __DIR__ . '/../includes/menu_config.php';

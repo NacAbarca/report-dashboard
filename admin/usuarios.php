@@ -19,10 +19,13 @@ $usuarios = $result ? $result->fetch_all(MYSQLI_ASSOC) : [];
 ?>
 
 <!-- CONTENIDO INICIO -->
-<div class="d-flex justify-content-between align-items-center mb-4">
-  <h3 class="text-primary m-0">
-    <i class="fas fa-users-cog me-2"></i> Gestión de Usuarios
-  </h3>
+<div class="app-panel-header">
+  <div class="app-panel-header-inner">
+    <h3 class="app-section-title m-0">
+      <i class="fas fa-users-cog me-2"></i> Gestión de Usuarios
+    </h3>
+    <p class="app-panel-subtitle">Administra cuentas, roles y accesos desde una tabla legible en desktop y mobile.</p>
+  </div>
   <a href="nuevo_usuario.php" class="btn btn-primary">
     <i class="fas fa-user-plus me-1"></i> Nuevo Usuario
   </a>
@@ -30,7 +33,7 @@ $usuarios = $result ? $result->fetch_all(MYSQLI_ASSOC) : [];
 
 <div id="alert-container"></div>
 
-<div class="card shadow-sm">
+<div class="card shadow-sm app-table-card">
   <div class="card-body">
     <div class="table-responsive">
       <table class="table table-hover align-middle">
@@ -67,7 +70,7 @@ $usuarios = $result ? $result->fetch_all(MYSQLI_ASSOC) : [];
               </tr>
             <?php endforeach; ?>
           <?php else: ?>
-            <tr><td colspan="5" class="text-center text-muted">No hay usuarios registrados</td></tr>
+            <tr><td colspan="5" class="empty-state">No hay usuarios registrados</td></tr>
           <?php endif; ?>
         </tbody>
       </table>

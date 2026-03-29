@@ -13,7 +13,7 @@ $estado = $user
   : '<i class="fas fa-circle text-danger me-1"></i> Sesión cerrada';
 ?>
 
-<footer class="footer mt-auto py-3 bg-white border-top shadow-sm">
+<footer class="footer app-footer mt-auto py-3 border-top">
   <div class="container text-center small text-muted">
     <div class="mb-1">
       <?= $estado ?>
@@ -33,4 +33,3 @@ $estado = $user
     </div>
   </div>
 </footer>
-

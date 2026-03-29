@@ -1,5 +1,18 @@
 ## [Unreleased]
 
+## [v1.2.2] - 2026-03-29
+
+### Changed
+- Refinamiento del sistema visual dark/light en `assets/css/custom.css`.
+- Navbar, sidebar, menu y footer alineados con el tema activo.
+- Dashboard mejorado con jerarquia visual mas clara para titulos, subtitulos y KPI cards.
+- Pantallas `admin/usuarios.php`, `admin/login_logs.php`, `perfil.php` y `perfil_sesiones.php` ajustadas para mejor contraste y responsive real.
+- `README.md` actualizado a la version `v1.2.2`.
+
+### Verified
+- `php -l` sobre `admin/usuarios.php`, `admin/login_logs.php`, `perfil.php` y `perfil_sesiones.php`.
+- Tablas y cards preparadas para dark/light sin depender de `table-dark`, `table-light` o colores fijos de Bootstrap.
+
 ## [v1.2.1] - 2026-03-29
 
 ### Fixed

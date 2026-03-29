@@ -1,10 +1,10 @@
 # 📊 Panel de Reportes Generalizada
 
-**Versión actual:** `v1.2.0`  
+**Versión actual:** `v1.2.2`  
 **Autor:** Ignacio Abarca  
 **Repositorio:** [GitHub - NacAbarca/report-dashboard](https://github.com/NacAbarca/report-dashboard)
 
-## 🔥 Últimas novedades (v1.2.0)
+## 🔥 Últimas novedades (v1.2.2)
 
 - Validación remota de sesiones activas
 - Control de sesión kill
@@ -13,6 +13,9 @@
 - Reestructuración visual sidebar
 - Auditoría de accesos mejorada
 - Conexión MySQL configurable para Railway vía variables de entorno
+- Corrección de flujos de login, registro y sesiones
+- Ajuste visual dark/light en tablas, cards, sidebar y navbar
+- Mejora responsive para desktop y mobile
 
 
 # 📝 Release Notes - v1.0.0

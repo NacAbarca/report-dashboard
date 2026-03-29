@@ -9,15 +9,15 @@ $roleEmoji = [
 ][$role] ?? '👥 Usuario';
 ?>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm px-4 border-bottom">
+<nav class="navbar navbar-expand-lg app-shell-nav px-3 px-lg-4 border-bottom">
   <div class="container-fluid">
 
     <!-- Marca del panel -->
-    <span class="navbar-brand fw-bold text-primary">📊 Panel de Reportes</span>
+    <span class="navbar-brand app-brand">📊 Panel de Reportes</span>
 
     <!-- Menú de usuario -->
     <div class="dropdown ms-auto">
-      <a href="#" class="d-flex align-items-center text-decoration-none text-dark dropdown-toggle" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+      <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle app-user-link" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
         <span class="me-2 fw-medium">
           <?= htmlspecialchars($user) ?>  
         </span>
@@ -36,7 +36,7 @@ $roleEmoji = [
 
   </div>
 
-  <div class="form-check form-switch text-light ms-auto me-3">
+  <div class="form-check form-switch app-theme-switch ms-lg-3 me-1">
     <input class="form-check-input" type="checkbox" id="themeSwitch">
     <label class="form-check-label" for="themeSwitch">🌙</label>
   </div>

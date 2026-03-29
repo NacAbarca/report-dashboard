@@ -70,8 +70,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 
 <!-- CONTENIDO -->
-<div class="mb-4 d-flex justify-content-between align-items-center">
-  <h3 class="text-primary"><i class="fas fa-user-circle me-2"></i>Mi Perfil</h3>
+<div class="app-panel-header">
+  <div class="app-panel-header-inner">
+    <h3 class="app-section-title m-0"><i class="fas fa-user-circle me-2"></i>Mi Perfil</h3>
+    <p class="app-panel-subtitle">Actualiza identidad, avatar y contraseña desde una vista más limpia y consistente con el tema activo.</p>
+  </div>
   <a href="/index.php" class="btn btn-sm btn-outline-secondary"><i class="fas fa-arrow-left"></i> Volver</a>
 </div>
 
@@ -81,9 +84,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <?php endif; ?>
 </div>
 
-<form method="POST" enctype="multipart/form-data" class="card shadow-sm p-4">
+<form method="POST" enctype="multipart/form-data" class="card shadow-sm p-4 app-form-card">
   <div class="text-center mb-4">
-    <img src="<?= htmlspecialchars($avatar) ?>" alt="avatar" class="rounded-circle border" width="96" height="96">
+    <div class="app-avatar-panel mb-3">
+      <img src="<?= htmlspecialchars($avatar) ?>" alt="avatar" class="rounded-circle border" width="96" height="96">
+    </div>
     <div class="mt-2">
       <input type="file" name="avatar" class="form-control form-control-sm" accept="image/*">
     </div>
