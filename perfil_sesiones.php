@@ -59,7 +59,7 @@ $result = $stmt->get_result();
         <td>
           <?php if ($row['status'] === 'success'): ?>
             <span class="badge bg-success"><i class="fas fa-check-circle me-1"></i>Activa</span>
-          <?php elseif ($row['status'] === 'failed'): ?>
+          <?php elseif ($row['status'] === 'fail'): ?>
             <span class="badge bg-secondary"><i class="fas fa-times-circle me-1"></i>Fallida</span>
           <?php elseif ($row['status'] === 'killed'): ?>
             <span class="badge bg-danger"><i class="fas fa-power-off me-1"></i>Cerrada</span>

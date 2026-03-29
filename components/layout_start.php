@@ -1,4 +1,7 @@
 <?php
+if (session_status() === PHP_SESSION_NONE) {
+  session_start();
+}
 
 // 🧱 Protección avanzada de sesión remota (cerradas por admin)
 if (!isset($_SESSION['user'])) {
@@ -11,10 +14,6 @@ require_once __DIR__ . '/../includes/session_guard.php';
 validate_session_active($conn);
 
 require_once __DIR__ . '/../includes/middleware.php';
-
-if (session_status() === PHP_SESSION_NONE) {
-  session_start();
-}
 if (!isset($_SESSION['user'])) {
   header("Location: ../login.php");
   exit;

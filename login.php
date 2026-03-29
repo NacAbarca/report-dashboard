@@ -1,4 +1,7 @@
 <?php
+if (session_status() === PHP_SESSION_NONE) {
+  session_start();
+}
 
 // 🔒 Evita entrar si ya está logueado
 if (isset($_SESSION['user'])) {

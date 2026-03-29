@@ -1,6 +1,8 @@
 <?php
 require 'includes/db.php';
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 if (isset($_SESSION['user'])) {
     header("Location: index.php");
@@ -11,9 +13,9 @@ $success = '';
 $error = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $username = trim($_POST['username']);
-    $password = trim($_POST['password']);
-    $confirm = trim($_POST['confirm_password']);
+    $username = trim($_POST['username'] ?? '');
+    $password = trim($_POST['password'] ?? '');
+    $confirm = trim($_POST['confirm_password'] ?? '');
 
     if ($username && $password && $confirm) {
         if ($password !== $confirm) {
@@ -43,8 +45,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="utf-8">
     <title>Registrar cuenta</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/vendor/fontawesome/css/all.min.css" rel="stylesheet">
+    <link href="/sbadmin/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/sbadmin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Nunito:400,700" rel="stylesheet">
     <link href="sbadmin/css/sb-admin-2.min.css" rel="stylesheet">
   </head>
@@ -66,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div id="alert-container"></div>
                 <!-- Alerts -->
 
-                <form class="user" method="POST" action="register.php">
+                <form class="user" method="POST" action="registrar.php">
                   <div class="form-group">
                     <input type="text" class="form-control form-control-user" name="username" placeholder="Nombre de usuario" required>
                   </div>
@@ -92,13 +94,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       </div>
     </div>
     
-    <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/sbadmin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="/sbadmin/vendor/jquery/jquery.min.js"></script>
     <script src="/sbadmin/js/sb-admin-2.min.js"></script>
 
     <script type="module">
-      import { notifyFromURL } from '../assets/js/notifier.js';
-      notifyFromURL(); // toast por defecto
+      import { notifyFromURL, showNotification } from '/assets/js/notifier.js';
+      notifyFromURL();
+
+      const errorMessage = <?= json_encode($error) ?>;
+      if (errorMessage) {
+        showNotification(errorMessage, { type: 'danger', mode: 'alert', containerId: 'alert-container' });
+      }
     </script>
   </body>
 </html>

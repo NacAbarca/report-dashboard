@@ -8,7 +8,6 @@ validate_session_active($conn);
 
 require '../includes/middleware.php';
 require_secure_view('admin');
-require '../components/layout_start.php';
 
 
 // 🚨 PROCESAR POST ANTES DE CUALQUIER HTML

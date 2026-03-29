@@ -10,20 +10,22 @@ $stmt->bind_param("s", $username);
 $stmt->execute();
 $user = $stmt->get_result()->fetch_assoc();
 
+// ✅ Registrar intento de login para auditoría
+$ip = $_SERVER['REMOTE_ADDR'] ?? 'unknown';
+$ua = $_SERVER['HTTP_USER_AGENT'] ?? 'unknown';
+$sid = session_id();
+$status = ($user && password_verify($password, $user['password'])) ? 'success' : 'fail';
+$auditStmt = $conn->prepare(
+  "INSERT INTO login_attempts (username, ip_address, user_agent, session_id, status) VALUES (?, ?, ?, ?, ?)"
+);
+$auditStmt->bind_param("sssss", $username, $ip, $ua, $sid, $status);
+$auditStmt->execute();
+
 if ($user && password_verify($password, $user['password'])) {
   $_SESSION['user_id'] = $user['id'];
   $_SESSION['user']    = $user['username'];
   $_SESSION['role']    = $user['role'];
-  $_SESSION['session_id'] = session_id();
-
-  // ✅ Guardar login en login_attempts
-  $ip = $_SERVER['REMOTE_ADDR'];
-  $ua = $_SERVER['HTTP_USER_AGENT'];
-  $sid = session_id();
-  $status = 'success';
-  $stmt = $conn->prepare("INSERT INTO login_attempts (username, ip_address, user_agent, session_id, status) VALUES (?, ?, ?, ?, ?)");
-  $stmt->bind_param("sssss", $username, $ip, $ua, $sid, $status);
-  $stmt->execute();
+  $_SESSION['session_id'] = $sid;
 
   header("Location: /index.php?success=✅ Bienvenido");
   exit;
