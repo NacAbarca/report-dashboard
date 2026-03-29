@@ -1,3 +1,20 @@
+## [Unreleased]
+
+### Added
+- Soporte de configuracion MySQL por variables de entorno para Railway.
+- Archivo `database/schema_minimo.sql` para inicializar `users` y `login_attempts`.
+- Archivo `.env.example` con plantilla de conexion.
+
+### Changed
+- Refactor de `includes/db.php` para soportar `MYSQL_URL`, `DATABASE_URL`, `MYSQL*` y `DB_*`.
+- Actualizacion de `diagnostico/env_api.php` para ejecutar validaciones seguras desde web y CLI.
+- Documentacion de instalacion y conexion en `README.md` y `RELEASE-NOTES.md`.
+
+### Verified
+- Conexion real a Railway.
+- Insercion de prueba en `login_attempts`.
+- Creacion de tablas base en una base vacia.
+
 ## [v1.2.0] - 2025-04-20
 
 ### ✨ Nuevas funcionalidades

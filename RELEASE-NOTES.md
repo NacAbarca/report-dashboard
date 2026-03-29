@@ -1,54 +1,37 @@
-# 🚀 Versión v1.1.0 – Panelería de Reportes Generalizada
+# Release Notes
 
-📅 Fecha: Abril 2025  
-👨‍💻 Autor: Ignacio Abarca  
-🔖 Tag: v1.1.0  
-🔗 [Repositorio GitHub](https://github.com/NacAbarca/report-dashboard)
+## v1.2.0 - 2026-03-28
 
----
+Tag actual: `v1.2.0`
 
-## ✅ Mejoras y Funcionalidades Nuevas
+### Cambios principales
+- Integracion de MySQL configurable para Railway mediante variables de entorno.
+- Soporte para `MYSQL_URL`, `DATABASE_URL` y variables `MYSQL*` o `DB_*`.
+- Fallback local seguro a `localhost` para desarrollo.
+- Esquema minimo agregado para inicializar una base vacia con `users` y `login_attempts`.
+- Diagnostico de entorno ajustado para ejecutar pruebas de conexion e insercion con rutas seguras.
 
-- 🔐 Validación activa de sesiones (`session_guard.php`)
-- 💣 Sistema de cierre remoto (`perfil_sesiones.php`)
-- 📱 Interfaz adaptativa mejorada (menú responsive)
-- 🎨 Mejoras visuales en componentes y layout general
-- 📝 Documentación profesional en `proyecto_panel_reportes.md`
+### Archivos clave
+- `includes/db.php`
+- `diagnostico/env_api.php`
+- `database/schema_minimo.sql`
+- `.env.example`
+- `README.md`
 
----
+### Validacion realizada
+- Conexion real validada contra Railway.
+- Creacion de tablas `users` y `login_attempts`.
+- Insercion de prueba y limpieza posterior en `login_attempts`.
+- Verificacion de sintaxis PHP sobre los archivos modificados.
 
-## 📁 Archivos Modificados
+### Notas operativas
+- `main` es la rama principal y sigue `origin/main`.
+- La rama feature de Railway ya fue mergeada y eliminada.
+- El tag `v1.2.0` fue corregido para apuntar al merge actual de `main`.
 
-- `layout_start.php` y `middleware.php`: protección reforzada
-- `perfil.php` y `perfil_sesiones.php`: gestión completa de sesiones activas
-- `toast.js`, `notifier.js`: limpieza de alertas desde URL
-- `README.md`, `RELEASE-NOTES.md`, `CHANGELOG.md`: actualizados
+## Proxima version sugerida: v1.2.1
 
----
-
-## 🛡️ Seguridad
-
-- Middleware avanzado
-- Hash de contraseñas y sesiones validadas
-- Auditoría con `login_logs`
-
----
-
-## 🧪 QA
-
-- Validado en entorno local y hosting remoto
-- 🧠 Test de validación remota OK
-- ✅ Sesión remota cerrada y bloqueada correctamente
-
----
-
-## 🛠️ Siguiente versión `v1.2.0` (en desarrollo)
-
-- 📤 Exportación de sesiones
-- 📈 Auditoría por IP y User-Agent
-- 🔔 Notificaciones vía email
-- 🔒 Multi-admin
-
----
-
-MIT License – Código abierto, libre distribución y crédito requerido.
+### Siguiente foco
+- Crear usuario administrador inicial para la base `railway`.
+- Definir bootstrap de datos iniciales para ambientes vacios.
+- Consolidar el flujo de despliegue y configuracion del `.env`.
