@@ -12,6 +12,7 @@
 - Notificaciones inteligentes
 - Reestructuración visual sidebar
 - Auditoría de accesos mejorada
+- Conexión MySQL configurable para Railway vía variables de entorno
 
 
 # 📝 Release Notes - v1.0.0
@@ -68,7 +69,22 @@
 ├── /assets/js/notifier.js  
 ├── /includes/auth.php  
 ├── /includes/db.php  
+├── /.env.example
+├── /database/schema_minimo.sql
 ```
+
+## ⚙️ Configuración MySQL / Railway
+
+1. Copia `.env.example` a `.env`
+2. Completa las variables de Railway:
+   - `MYSQLHOST`
+   - `MYSQLPORT`
+   - `MYSQLDATABASE`
+   - `MYSQLUSER`
+   - `MYSQLPASSWORD`
+3. Si tu base está vacía, importa `database/schema_minimo.sql`
+
+También se soporta `MYSQL_URL` o `DATABASE_URL` si Railway entrega la conexión como URL completa.
 
 ---
 
